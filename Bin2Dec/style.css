@@ -1,0 +1,36 @@
+
+.box {
+    background:#d6f0fd;
+    width: 500px;
+    height: auto;
+    padding:1em;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.box h2 {
+    margin: 10px;
+    margin-bottom: 2px;
+}
+
+.box input {
+    background-color: #e0f0f0;
+    width: 50%;
+    font-size: 18px;
+    margin: 10px ;
+    padding:10px;
+    border-radius:2px;
+    
+}
+
+.box button{
+    width: 30%;
+    font-size: 18px;
+    padding: 10px;
+    border:1px solid #333;
+    border-radius: 2px;
+}
+
+.red {
+    color:red;
+}

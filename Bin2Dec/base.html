@@ -2,10 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bin2Dec</title>
 </head>
 <body>
-    
+<div id="app">
+    <div class="main">
+        <h1>
+            Binary to Decimal Converter
+        </h1>
+        <div class="box">
+            <p v-if="error" class="red">{{error}}</p>
+            <h2>Binary Input</h2>
+            <input type="number" placeholder="Enter 0 or 1" v-model="binary">
+            <button v-on:click="convert">Convert</button>
+            <h2>Decimal Output</h2>
+            <input type="number" disabled :value="decimal">
+
+        </div>
+    </div>
+</div>
+    <script src="myvue.js"></script>
 </body>
 </html>
