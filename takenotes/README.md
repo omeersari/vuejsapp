@@ -1,4 +1,7 @@
-# takenotes
+## takenotes
+
+With this project, you can take notes, edit them and delete them.
+
 
 ## Project setup
 ```
