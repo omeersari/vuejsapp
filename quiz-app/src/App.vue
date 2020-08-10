@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h2>Welcome to Vue.JS Quizz App</h2>
+    <p>Every quizz has 10 questions. After 10. question you will be able to see the results.</p>
+    <small>Designed by: OmerSari for Vue.js practise</small>
+    <HelloWorld />
   </div>
 </template>
 
