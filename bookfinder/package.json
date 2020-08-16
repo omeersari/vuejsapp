@@ -1,5 +1,5 @@
 {
-  "name": "quiz-app",
+  "name": "bookfinder",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,14 +9,11 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
-    "surge": "^0.21.6",
-    "underscore": "^1.10.2",
-    "vue": "^2.6.11",
-    "vue-underscore": "^0.1.4"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-service": "~4.4.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
     "vue-template-compiler": "^2.6.11"
   }
 }
