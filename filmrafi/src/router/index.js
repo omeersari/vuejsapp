@@ -8,7 +8,29 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: "popular",
+        name: "Popular",
+        component: () => import("../views/home/Popular.vue")
+      },
+      {
+        path: "nowplaying",
+        name: "NowPlaying",
+        component: () => import("../views/home/NowPlaying.vue")
+      },
+      {
+        path: "toprated",
+        name: "TopRated",
+        component: () => import("../views/home/TopRated.vue")
+      },
+      {
+        path: "upcoming",
+        name: "Upcoming",
+        component: () => import("../views/home/Upcoming.vue")
+      },
+    ]
   },
   {
     path: "/about",
