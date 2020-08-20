@@ -2,25 +2,28 @@
   <div>
     <div class="navigation">
       <div class="logo">
-        <router-link to="">
+        <router-link to="/">
           <i class="fas fa-file-video"></i>
           Filmrafi
         </router-link>
       </div>
 
-      <form class="search"><input type="text" placeholder="Search a movie" /> <i class="fas fa-search"></i> </form>
+      <form class="search">
+        <input type="text" placeholder="Search a movie" />
+        <i class="fas fa-search"></i>
+      </form>
 
       <nav class="right">
-        <router-link to="">
-          <i class="far fa-bookmark"></i>
-          <i class="fas fa-bookmark"></i>
-          My Favorites</router-link
-        >
-        <router-link to="">
+        <router-link to="/bookmarks">
+          <i v-if="($route.name === 'BookMarks')" class="fas fa-bookmark"></i>
+          <i v-else class="far fa-bookmark"></i>
+          My Favorites</router-link>
+        <a href="https://github.com/omeersari" target="_blank">
           <i class="fab fa-github"></i>
-          Github</router-link
+          Github</a>
+        <router-link to="/login"
+          ><i class="fas fa-sign-in-alt"></i> Login</router-link
         >
-        <router-link to=""><i class="fas fa-sign-in-alt"></i> Login</router-link>
       </nav>
     </div>
   </div>
@@ -59,7 +62,6 @@ export default {
   padding-left: 20px;
   width: 342px;
   height: 38px;
-  border-radius: 4px;
 }
 
 .search i {

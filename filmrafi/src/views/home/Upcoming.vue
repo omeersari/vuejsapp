@@ -1,12 +1,37 @@
 <template>
-  <div>
-    Upcoming
+  <div class="popbody">
+    <div class="popMovies" v-for="(item, i) in upComingMovies" :key="i">
+      <div class="image">
+        <img :src="`https://image.tmdb.org/t/p/original/${item.poster_path}`"/>
+      </div>
+      <div class="information">
+        <span class="rate">
+            {{ item.vote_average }}
+          </span>
+        <span class="title">
+          {{ item.title }}
+        </span>
+        <div class="genres">
+          <p v-for="(name, i) in item.genre_ids" :key="i"> {{ name }}, </p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
 export default {
-    name: "Upcoming"
+    name: "Upcoming",
+  computed: {
+      ...mapGetters(['upComingMovies'])
+  },
+  methods: {
+      ...mapActions(["upcoming"])
+  },
+  created() {
+      this.upcoming()
+  }
 }
 </script>
 

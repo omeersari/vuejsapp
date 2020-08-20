@@ -46,4 +46,5 @@ body {
   font-family: 'Baloo Tamma 2', cursive;
   background-color: #f2c67e;
 }
+
 </style>
