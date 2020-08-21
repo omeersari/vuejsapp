@@ -17,4 +17,5 @@ export default {
   max-width: 1080px;
   padding-top:40px;
 }
+
 </style>

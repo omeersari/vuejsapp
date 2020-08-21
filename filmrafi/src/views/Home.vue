@@ -67,4 +67,19 @@ export default {
 .router-link-active {
   background-color: #ffa004 !important;
 }
+
+@media only screen and (max-width: 820px) {
+  .topButtons {
+    display: flex;
+    justify-content: center;
+  }
+  .topButtons a {
+    border: 1px solid black;
+    padding: 5px;
+    background-color: #423a2d;
+    color: white;
+    border-radius: 5px;
+    margin-right: 2px;
+  }
+}
 </style>

@@ -4,8 +4,9 @@
       <div class="logo">
         <router-link to="/">
           <i class="fas fa-file-video"></i>
-          Filmrafi
+          <span class="text"> Filmrafi </span>
         </router-link>
+
       </div>
 
       <form class="search">
@@ -17,13 +18,12 @@
         <router-link to="/bookmarks">
           <i v-if="($route.name === 'BookMarks')" class="fas fa-bookmark"></i>
           <i v-else class="far fa-bookmark"></i>
-          My Favorites</router-link>
+          <span class="text">My Favorites</span> </router-link>
         <a href="https://github.com/omeersari" target="_blank">
           <i class="fab fa-github"></i>
-          Github</a>
+          <span class="text">Github</span> </a>
         <router-link to="/login"
-          ><i class="fas fa-sign-in-alt"></i> Login</router-link
-        >
+          ><i class="fas fa-sign-in-alt"></i> <span class="text">Login</span> </router-link>
       </nav>
     </div>
   </div>
@@ -74,5 +74,38 @@ export default {
 .right {
   display: flex;
   justify-content: space-evenly;
+}
+
+@media only screen and (max-width: 820px) {
+  .search input {
+    padding-left: 20px;
+    width: 150px;
+    height: 38px;
+    margin-left: 15px;
+  }
+  .right {
+    margin-left: 15px;
+  }
+  .right a {
+    margin-right: 10px;
+  }
+  .text {
+    display: none;
+  }
+}
+
+
+
+@media only screen and (max-width: 1005px) {
+
+  .right {
+    margin-left: 60px;
+  }
+  .right a {
+    margin-right: 50px;
+  }
+  .text {
+    display: none;
+  }
 }
 </style>

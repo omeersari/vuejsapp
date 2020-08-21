@@ -81,4 +81,25 @@ export default {
   width: 85%;
 }
 
+
+@media only screen and (max-width: 820px) {
+  .popbody {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .information {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: black;
+    width: 80%;
+    color: white;
+    height: auto;
+  }
+  .image img {
+    width: 80%;
+    height: 300px;
+  }
+}
+
 </style>
