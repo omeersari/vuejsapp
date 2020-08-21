@@ -1,18 +1,23 @@
 <template>
   <div class="popbody">
-    <div class="popMovies" v-for="(item, i) in upComingMovies" :key="i" @click="gotoDetails">
+    <div
+      class="popMovies"
+      v-for="(item, i) in upComingMovies"
+      :key="i"
+      @click="gotoDetails"
+    >
       <div class="image">
-        <img :src="`https://image.tmdb.org/t/p/original/${item.poster_path}`"/>
+        <img :src="`https://image.tmdb.org/t/p/original/${item.poster_path}`" />
       </div>
       <div class="information">
         <span class="rate">
-            {{ item.vote_average }}
-          </span>
+          {{ item.vote_average }}
+        </span>
         <span class="title">
           {{ item.title }}
         </span>
         <div class="genres">
-          <p v-for="(name, i) in item.genre_ids" :key="i"> {{ name }}, </p>
+          <p v-for="(name, i) in item.genre_ids" :key="i">{{ name }},</p>
         </div>
       </div>
     </div>
@@ -20,24 +25,22 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 export default {
-    name: "Upcoming",
+  name: "Upcoming",
   computed: {
-      ...mapGetters(['upComingMovies'])
+    ...mapGetters(["upComingMovies"])
   },
   methods: {
-      ...mapActions(["upcoming"]),
+    ...mapActions(["upcoming"]),
     gotoDetails() {
-      this.$router.push({ name: 'Detail'})
+      this.$router.push({ name: "Detail" });
     }
   },
   created() {
-      this.upcoming()
+    this.upcoming();
   }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -71,4 +71,13 @@ export default {
   color: white;
 }
 
+@media only screen and (max-width: 820px) {
+  .loginForm {
+    width: 300px;
+  }
+  .loginForm p {
+    display: inline;
+  }
+}
+
 </style>

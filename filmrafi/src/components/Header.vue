@@ -20,7 +20,7 @@
           <i v-else class="far fa-bookmark"></i>
           <span class="text">My Favorites</span> </router-link>
         <a href="https://github.com/omeersari" target="_blank">
-          <i class="fab fa-github"></i>
+          <i @click="searchMovie" class="fab fa-github"></i>
           <span class="text">Github</span> </a>
         <router-link to="/login"
           ><i class="fas fa-sign-in-alt"></i> <span class="text">Login</span> </router-link>
@@ -32,7 +32,12 @@
 <script>
 export default {
   name: "Header",
-  components: {}
+  components: {},
+  methods: {
+    searchMovie() {
+
+    }
+  }
 };
 </script>
 
@@ -65,23 +70,28 @@ export default {
 }
 
 .search i {
-  background-color: white;
+  background-color: rgb(248, 248, 248);
   display: grid;
   align-items: center;
-  padding-right: 7px;
+  padding: 5px;
 }
 
 .right {
   display: flex;
   justify-content: space-evenly;
 }
+.text {
+  margin-left: 5px;
+}
 
 @media only screen and (max-width: 820px) {
+  .search {
+    justify-content: flex-start;
+
+  }
   .search input {
-    padding-left: 20px;
     width: 150px;
     height: 38px;
-    margin-left: 15px;
   }
   .right {
     margin-left: 15px;
@@ -96,6 +106,7 @@ export default {
 
 
 
+/*
 @media only screen and (max-width: 1005px) {
 
   .right {
@@ -107,5 +118,5 @@ export default {
   .text {
     display: none;
   }
-}
+}*/
 </style>
