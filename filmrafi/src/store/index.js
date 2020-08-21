@@ -51,7 +51,7 @@ export default new Vuex.Store({
     },
     async popularMovies({ commit }) {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=1"
+        "https://api.themoviedb.org/3/movie/popular?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=2"
       );
       commit("POPULAR_MOVIES", response.data.results);
     },
