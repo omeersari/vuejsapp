@@ -12,6 +12,7 @@ export default new Vuex.Store({
     TopRated: [],
     upComing: [],
     nowPlaying: [],
+    detailMovie: {},
 
   },
   getters: {
@@ -20,14 +21,15 @@ export default new Vuex.Store({
     genreList: state => state.Types,
     topRated: state => state.TopRated,
     upComingMovies: state => state.upComing,
-    nowPlayingMovies: state => state.nowPlaying
+    nowPlayingMovies: state => state.nowPlaying,
+    detailMovie: state => state.detailMovie
   },
   mutations: {
     POPULAR_MOVIES(state, movies) {
       state.PopularMovies = movies;
     },
-    LATEST_MOVIE(state, latest) {
-      state.latestMovie = latest
+    GET_DETAIL(state, detail) {
+      state.detailMovie = detail
     },
     GENRES_LIST(state, genres) {
       state.Types = genres;
@@ -55,11 +57,11 @@ export default new Vuex.Store({
       );
       commit("POPULAR_MOVIES", response.data.results);
     },
-    async latestMovie({ commit }) {
+    async getDetail({ commit }, id) {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/latest?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US"
+      `https://api.themoviedb.org/3/movie/${id}?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US`
       );
-      commit("LATEST_MOVIE", response.data);
+      commit("GET_DETAIL", response.data);
     },
     async topRatedMovies ({ commit}) {
       const response = await axios.get("" +

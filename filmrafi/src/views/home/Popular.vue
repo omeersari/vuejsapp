@@ -1,6 +1,6 @@
 <template>
   <div class="popbody">
-    <div class="popMovies" v-for="(item, i) in PopMovies" :key="i" @click="gotoDetails">
+    <div class="popMovies" v-for="item in PopMovies" :key="item.id" @click="gotoDetails(item.id)">
       <div class="image">
         <img :src="`https://image.tmdb.org/t/p/original/${item.poster_path}`" />
       </div>
@@ -27,9 +27,10 @@ export default {
     ...mapGetters(["PopMovies", "genreList"])
   },
   methods: {
-    ...mapActions(["popularMovies"]),
-    gotoDetails() {
-      this.$router.push({ name: 'Detail'})
+    ...mapActions(["popularMovies", "getDetail"]),
+    gotoDetails(id) {
+      this.getDetail(id)
+      this.$router.push({ name: 'Detail', params: {id}})
     }
   },
   created() {

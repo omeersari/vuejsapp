@@ -18,20 +18,19 @@
 
 <script>
 // @ is an alias to /src
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import Popular from "@/views/home/Popular";
 
 export default {
   name: "Home",
   components: {Popular},
   computed: {
-    ...mapGetters(["LastMovie"])
+
   },
   methods: {
-    ...mapActions(["latestMovie", "genresList"])
+    ...mapActions(["genresList"])
   },
   created() {
-    this.latestMovie();
     this.genresList();
   }
 };
