@@ -1,18 +1,18 @@
 <template>
   <div class="popbody">
-    <div class="popMovies" v-for="(item, i) in PopMovies" :key="i">
+    <div class="popMovies" v-for="(item, i) in PopMovies" :key="i" @click="gotoDetails">
       <div class="image">
-        <img :src="`https://image.tmdb.org/t/p/original/${item.poster_path}`"/>
+        <img :src="`https://image.tmdb.org/t/p/original/${item.poster_path}`" />
       </div>
       <div class="information">
         <span class="rate">
-            {{ item.vote_average }}
-          </span>
+          {{ item.vote_average }}
+        </span>
         <span class="title">
           {{ item.title }}
         </span>
         <div class="genres">
-          <p v-for="(name, i) in item.genre_ids" :key="i"> {{ name }}, </p>
+          <p v-for="(name, i) in item.genre_ids" :key="i">{{ name }},</p>
         </div>
       </div>
     </div>
@@ -24,10 +24,13 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Popular",
   computed: {
-    ...mapGetters(["PopMovies", "genreList"]),
+    ...mapGetters(["PopMovies", "genreList"])
   },
   methods: {
-    ...mapActions(["popularMovies"])
+    ...mapActions(["popularMovies"]),
+    gotoDetails() {
+      this.$router.push({ name: 'Detail'})
+    }
   },
   created() {
     this.popularMovies();
@@ -39,9 +42,8 @@ export default {
 .popbody {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 10px;
+  gap: 15px;
 }
-
 .information {
   display: flex;
   flex-direction: column;
@@ -49,11 +51,19 @@ export default {
   background-color: black;
   color: white;
   height: 100px;
-  padding:5px;
+  padding: 5px;
 }
 
 .image {
   height: 300px;
+}
+.popMovies {
+  position: relative;
+  top: 0;
+  transition: top ease 0.5s;
+}
+.popMovies:hover {
+  top: -10px;
 }
 .image img {
   width: 100%;
@@ -71,7 +81,7 @@ export default {
 }
 
 .title {
-  width:85%;
+  width: 85%;
 }
 
 .genres {
@@ -81,11 +91,11 @@ export default {
   width: 85%;
 }
 
-
 @media only screen and (max-width: 820px) {
   .popbody {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    justify-items: center;
   }
   .information {
     display: flex;
@@ -101,5 +111,4 @@ export default {
     height: 300px;
   }
 }
-
 </style>
