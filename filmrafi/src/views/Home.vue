@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Container>
     <div class="topButtons">
       <router-link to="/popular">Popular</router-link>
       <router-link to="/toprated">Top Rated</router-link>
@@ -13,6 +14,7 @@
       </div>
       <router-view />
     </div>
+    </Container>
   </div>
 </template>
 
@@ -20,10 +22,11 @@
 // @ is an alias to /src
 import { mapActions } from "vuex";
 import Popular from "@/views/home/Popular";
+import Container from "@/components/Container";
 
 export default {
   name: "Home",
-  components: {Popular},
+  components: {Popular, Container},
   computed: {
 
   },

@@ -1,4 +1,5 @@
 <template>
+  <Container style="margin-top:100px">
   <div class="loginForm">
     <h1>LOGIN</h1>
     <form class="login">
@@ -13,11 +14,16 @@
     </p>
 
     </div>
+  </Container>
 </template>
 
 <script>
+import Container from "@/components/Container";
 export default {
   name: "Login",
+  components: {
+    Container
+  }
 }
 </script>
 
