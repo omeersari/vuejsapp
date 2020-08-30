@@ -13,7 +13,7 @@
           <small > Release Date: {{detailMovie.release_date}} </small>
           <small > Duration: {{detailMovie.runtime}} min</small>
           <span class="imdb">
-            <img src="../assets/imdb.png" style="width: 75px; height: auto" > <p> {{detailMovie.vote_average}}</p>
+            <img src="../assets/imdb.png" style="width: 65px; height: auto" > <p> {{detailMovie.vote_average}}</p>
           </span>
           <h4 style="font-style: italic; margin-top: 15px;"> {{detailMovie.tagline}} </h4>
           <h1> Overview</h1>
@@ -70,6 +70,7 @@ export default {
 .movie {
   margin-left: 15px;
   color: white;
+  font-weight: bold;
 }
 
 .right {
