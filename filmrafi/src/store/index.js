@@ -13,7 +13,7 @@ export default new Vuex.Store({
     upComing: [],
     nowPlaying: [],
     detailMovie: {},
-
+    castofMovie: []
   },
   getters: {
     PopMovies: state => state.PopularMovies,
@@ -22,7 +22,8 @@ export default new Vuex.Store({
     topRated: state => state.TopRated,
     upComingMovies: state => state.upComing,
     nowPlayingMovies: state => state.nowPlaying,
-    detailMovie: state => state.detailMovie
+    detailMovie: state => state.detailMovie,
+    movieCast: state => state.castofMovie
   },
   mutations: {
     POPULAR_MOVIES(state, movies) {
@@ -42,6 +43,9 @@ export default new Vuex.Store({
     },
     NOW_PLAYING(state, response) {
       state.nowPlaying = response
+    },
+    GET_CAST(state, response) {
+      state.castofMovie = response.cast
     }
   },
   actions: {
@@ -78,11 +82,11 @@ export default new Vuex.Store({
           "https://api.themoviedb.org/3/movie/now_playing?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=1");
       commit("NOW_PLAYING", response.data.results)
     },
-
-
-
-
-
+    async getCast ({commit}, id) {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=c038ce1188345d8eaab23ae93ef8532d`);
+      console.log(response)
+      commit("GET_CAST", response.data)
+    }
 
 
   },

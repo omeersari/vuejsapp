@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="head">
   <div class="about" :style="`background-image: url(https://image.tmdb.org/t/p/original/${detailMovie.backdrop_path})`"> </div>
     <div class="title">
@@ -18,12 +19,16 @@
           <h4 style="font-style: italic; margin-top: 15px;"> {{detailMovie.tagline}} </h4>
           <h1> Overview</h1>
           <p>{{detailMovie.overview}}</p>
-
-
         </div>
-
-
     </div>
+  </div>
+    <div class="actors">
+    <div v-for="(actor,id) in movieCast" :key="id">
+      <img class="actorImg" :src="`https://image.tmdb.org/t/p/original/${actor.profile_path}`"/>
+      <p style="text-align: center">{{actor.name}}</p>
+      <p style="font-style: italic; text-align: center">{{actor.character}}</p>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -33,7 +38,10 @@ import {mapGetters} from 'vuex'
 export default {
   name:"Detail",
   computed: {
-    ...mapGetters(["detailMovie"])
+    ...mapGetters(["detailMovie", "movieCast"])
+  },
+  created() {
+    this.$store.dispatch("getCast", this.detailMovie.id)
   }
 }
 </script>
@@ -103,6 +111,21 @@ export default {
   padding-top: 10px;
   color: gold;
   margin-left: 15px;
+}
+
+.actors {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.actors img {
+  margin-left: 15px;
+}
+
+.actorImg {
+  width: 175px;
+  height: auto;
 }
 
 
