@@ -40,7 +40,7 @@ body {
   font-size: 1rem;
   font-weight: normal;
   font-family: 'Baloo Tamma 2', cursive;
-  background-color: #f2c67e;
+  background-color: #1b262c;
 }
 
 </style>

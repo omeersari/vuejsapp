@@ -45,7 +45,7 @@ export default new Vuex.Store({
       state.nowPlaying = response
     },
     GET_CAST(state, response) {
-      state.castofMovie = response.cast
+      state.castofMovie = response.cast.filter((item) => item.profile_path !== null)
     }
   },
   actions: {
@@ -84,11 +84,9 @@ export default new Vuex.Store({
     },
     async getCast ({commit}, id) {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=c038ce1188345d8eaab23ae93ef8532d`);
-      console.log(response)
+      console.log(response.data)
       commit("GET_CAST", response.data)
     }
-
-
   },
   modules: {}
 });

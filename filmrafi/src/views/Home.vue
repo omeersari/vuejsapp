@@ -43,7 +43,7 @@ export default {
 .topButtons a {
   border: 1px solid black;
   padding: 10px;
-  background-color: #423a2d;
+  background-color: #0f4c75;
   color: white;
   border-radius: 5px;
   margin-right: 5px;
@@ -67,7 +67,7 @@ export default {
 
 
 .router-link-active {
-  background-color: #ffa004 !important;
+  background-color: #bbe1fa !important;
 }
 
 @media only screen and (max-width: 820px) {
@@ -78,7 +78,7 @@ export default {
   .topButtons a {
     border: 1px solid black;
     padding: 5px;
-    background-color: #423a2d;
+    background-color: #0f4c75;
     color: white;
     border-radius: 5px;
     margin-right: 2px;

@@ -29,7 +29,6 @@ export default {
   methods: {
     ...mapActions(["popularMovies", "getDetail"]),
     gotoDetails(id) {
-      this.getDetail(id)
       this.$router.push({ name: 'Detail', params: {id}})
     }
   },

@@ -22,26 +22,28 @@
         </div>
     </div>
   </div>
-    <div class="actors">
-    <div v-for="(actor,id) in movieCast" :key="id">
-      <img class="actorImg" :src="`https://image.tmdb.org/t/p/original/${actor.profile_path}`"/>
-      <p style="text-align: center">{{actor.name}}</p>
-      <p style="font-style: italic; text-align: center">{{actor.character}}</p>
-    </div>
-  </div>
+    <Cast :cast="movieCast" />
   </div>
 </template>
 
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
+import Cast from "@/components/Cast";
 export default {
   name:"Detail",
+  components:{
+    Cast
+  },
   computed: {
     ...mapGetters(["detailMovie", "movieCast"])
   },
+  methods: {
+    ...mapActions(["getDetail", "getCast"]),
+  },
   created() {
-    this.$store.dispatch("getCast", this.detailMovie.id)
+    this.getDetail(this.$route.params.id)
+    this.getCast(this.$route.params.id)
   }
 }
 </script>
@@ -113,20 +115,7 @@ export default {
   margin-left: 15px;
 }
 
-.actors {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
 
-.actors img {
-  margin-left: 15px;
-}
-
-.actorImg {
-  width: 175px;
-  height: auto;
-}
 
 
 </style>
