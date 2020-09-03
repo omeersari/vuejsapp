@@ -40,7 +40,10 @@ body {
   font-size: 1rem;
   font-weight: normal;
   font-family: 'Baloo Tamma 2', cursive;
-  background-color: #1b262c;
+  background-image: url("./assets/movie.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 </style>

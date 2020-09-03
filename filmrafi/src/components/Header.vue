@@ -49,7 +49,8 @@ export default {
   height: auto;
   padding: 1em;
   font-size: 20px;
-  background-color: #bbe1fa;
+  background-color: #0f4c75;
+  color: white;
 }
 
 .logo {

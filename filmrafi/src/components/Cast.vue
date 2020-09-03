@@ -14,7 +14,7 @@
       <div v-for="(actor, id) in myCast" :key="id" class="actorCard">
         <img
           class="actorImg"
-          :src="`https://image.tmdb.org/t/p/original/${actor.profile_path}`"
+          :src="`${API.IMAGE_URL}${actor.profile_path}`"
         />
         <p style="text-align: center">{{ actor.name }}</p>
         <p style="font-style: italic; text-align: center">
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import API from "../../api";
 export default {
   name: "Cast",
   props: {
@@ -37,6 +38,7 @@ export default {
   data() {
     return {
       showAll: false,
+      API
     };
   },
   methods: {
@@ -63,6 +65,7 @@ export default {
   color: white;
   width: 90%;
   background-color: #0f4c75;
+
 }
 
 .top {
@@ -88,7 +91,7 @@ export default {
   flex-wrap: wrap;
 }
 .actorCard {
-  width: auto;
+  width: 200px;
   padding-top: 10px;
   margin-bottom: 10px;
   color: white;

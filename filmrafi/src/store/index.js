@@ -13,7 +13,8 @@ export default new Vuex.Store({
     upComing: [],
     nowPlaying: [],
     detailMovie: {},
-    castofMovie: []
+    castOfMovie: [],
+    galeryOfMovie: [],
   },
   getters: {
     PopMovies: state => state.PopularMovies,
@@ -23,7 +24,8 @@ export default new Vuex.Store({
     upComingMovies: state => state.upComing,
     nowPlayingMovies: state => state.nowPlaying,
     detailMovie: state => state.detailMovie,
-    movieCast: state => state.castofMovie
+    movieCast: state => state.castOfMovie,
+    movieGalery: state => state.galeryOfMovie
   },
   mutations: {
     POPULAR_MOVIES(state, movies) {
@@ -45,7 +47,10 @@ export default new Vuex.Store({
       state.nowPlaying = response
     },
     GET_CAST(state, response) {
-      state.castofMovie = response.cast.filter((item) => item.profile_path !== null)
+      state.castOfMovie = response.cast.filter((item) => item.profile_path !== null)
+    },
+    GET_GALERY(state, response) {
+      state.galeryOfMovie = response.backdrops
     }
   },
   actions: {
@@ -84,8 +89,11 @@ export default new Vuex.Store({
     },
     async getCast ({commit}, id) {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=c038ce1188345d8eaab23ae93ef8532d`);
-      console.log(response.data)
       commit("GET_CAST", response.data)
+    },
+    async getGalery ({commit}, id) {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/images?api_key=c038ce1188345d8eaab23ae93ef8532d`);
+      commit("GET_GALERY", response.data)
     }
   },
   modules: {}
