@@ -50,7 +50,7 @@ export default new Vuex.Store({
       state.castOfMovie = response.cast.filter((item) => item.profile_path !== null)
     },
     GET_GALERY(state, response) {
-      state.galeryOfMovie = response.backdrops
+      state.galeryOfMovie = response.backdrops.filter((item) => item.iso_639_1 === null).map((item) => item.file_path)
     }
   },
   actions: {
@@ -94,6 +94,7 @@ export default new Vuex.Store({
     async getGalery ({commit}, id) {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/images?api_key=c038ce1188345d8eaab23ae93ef8532d`);
       commit("GET_GALERY", response.data)
+      console.log(response.data)
     }
   },
   modules: {}

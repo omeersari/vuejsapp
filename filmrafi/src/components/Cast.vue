@@ -64,15 +64,12 @@ export default {
   margin: 30px auto 0 auto;
   color: white;
   width: 90%;
-  background-color: #0f4c75;
 
 }
 
 .top {
   display: flex;
   justify-content: space-between;
-  margin-left: 70px;
-  margin-right: 70px;
   padding: 1em;
 }
 
