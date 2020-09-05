@@ -60,6 +60,8 @@ name: "Rec",
 
 .rec {
   display: grid;
+  width: 70%;
+  margin: 40px auto 20px auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 15px;
 }
@@ -72,11 +74,8 @@ name: "Rec",
   height: 100px;
   padding: 5px;
 }
-
 .image {
-
   height: 300px;
-
 }
 .popMovies {
   position: relative;
