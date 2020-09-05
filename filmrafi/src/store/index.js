@@ -99,7 +99,6 @@ export default new Vuex.Store({
     async getGalery ({commit}, id) {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/images?api_key=c038ce1188345d8eaab23ae93ef8532d`);
       commit("GET_GALERY", response.data)
-      console.log(response.data)
     },
     async getRec ({commit}, id) {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=1`)

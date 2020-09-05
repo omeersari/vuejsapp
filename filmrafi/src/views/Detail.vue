@@ -10,7 +10,7 @@
       <div class="title">
         <h1>{{ detailMovie.title }}</h1>
         <small v-for="(genres, id) in detailMovie.genres" :key="id">
-          {{ genres.name }} |
+          <span class="genres">{{ genres.name }}</span>
         </small>
       </div>
       <div class="movie">
@@ -101,6 +101,17 @@ export default {
 .title {
   color: white;
   padding: 1em;
+}
+
+.genres {
+  display: inline;
+  margin-left: 5px;
+  font-size: 16px;
+  background-color: #ffc107;
+  border: 1px solid #ffc107;
+  border-radius: 10px;
+  padding: 1px;
+  color: #212529;
 }
 
 .movie {
