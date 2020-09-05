@@ -15,6 +15,7 @@ export default new Vuex.Store({
     detailMovie: {},
     castOfMovie: [],
     galeryOfMovie: [],
+    recommadations : [],
   },
   getters: {
     PopMovies: state => state.PopularMovies,
@@ -25,7 +26,8 @@ export default new Vuex.Store({
     nowPlayingMovies: state => state.nowPlaying,
     detailMovie: state => state.detailMovie,
     movieCast: state => state.castOfMovie,
-    movieGalery: state => state.galeryOfMovie
+    movieGalery: state => state.galeryOfMovie,
+    movieRec : state => state.recommadations
   },
   mutations: {
     POPULAR_MOVIES(state, movies) {
@@ -51,6 +53,9 @@ export default new Vuex.Store({
     },
     GET_GALERY(state, response) {
       state.galeryOfMovie = response.backdrops.filter((item) => item.iso_639_1 === null).map((item) => item.file_path)
+    },
+    GET_REC(state, payload) {
+      state.recommadations = payload.results
     }
   },
   actions: {
@@ -95,6 +100,10 @@ export default new Vuex.Store({
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/images?api_key=c038ce1188345d8eaab23ae93ef8532d`);
       commit("GET_GALERY", response.data)
       console.log(response.data)
+    },
+    async getRec ({commit}, id) {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=1`)
+      commit("GET_REC", response.data)
     }
   },
   modules: {}

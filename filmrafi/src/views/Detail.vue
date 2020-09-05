@@ -37,7 +37,10 @@
     </div>
     <Cast :cast="movieCast" />
     <Galery :galery="movieGalery" />
+    <Rec :rec="movieRec" />
+    <router-view></router-view>
   </div>
+
 </template>
 
 <script>
@@ -45,11 +48,13 @@ import { mapGetters, mapActions } from "vuex";
 import API from "../../api";
 import Cast from "@/components/Cast";
 import Galery from "@/components/Galery";
+import Rec from "@/components/Rec";
 export default {
   name: "Detail",
   components: {
     Cast,
-    Galery
+    Galery,
+    Rec
   },
   data() {
     return {
@@ -57,15 +62,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["detailMovie", "movieCast", "movieGalery"])
+    ...mapGetters(["detailMovie", "movieCast", "movieGalery", "movieRec"])
   },
   methods: {
-    ...mapActions(["getDetail", "getCast", "getGalery"])
+    ...mapActions(["getDetail", "getCast", "getGalery", "getRec"])
   },
   created() {
     this.getDetail(this.$route.params.id);
     this.getCast(this.$route.params.id);
     this.getGalery(this.$route.params.id);
+    this.getRec(this.$route.params.id)
   }
 };
 </script>
@@ -132,5 +138,14 @@ export default {
   padding-top: 10px;
   color: gold;
   margin-left: 15px;
+}
+
+@media only screen and (max-width: 820px) {
+ .head {
+   height: auto;
+ }
+  .head .about {
+    height: auto;
+  }
 }
 </style>

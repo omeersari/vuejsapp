@@ -12,7 +12,7 @@
         <div class="latestMovie" v-if="$route.name === 'Home'">
           <Popular/>
       </div>
-      <router-view />
+      <router-view  />
     </div>
     </Container>
   </div>

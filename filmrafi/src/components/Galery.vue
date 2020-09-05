@@ -12,7 +12,7 @@
           emit: false
         })
       "
-      fixed-height="400px"
+      fixed-height="600px"
     >
       <vueper-slide v-for="(slide, i) in galery" :key="i" :image="`${API.IMAGE_URL}${slide}`">
       </vueper-slide>
