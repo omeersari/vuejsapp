@@ -63,10 +63,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["detailMovie", "movieCast", "movieGalery", "movieRec"])
+    ...mapGetters('movies', ["detailMovie", "movieCast", "movieGalery", "movieRec"])
   },
   methods: {
-    ...mapActions(["getDetail", "getCast", "getGalery", "getRec"])
+    ...mapActions("movies", ["getDetail", "getCast", "getGalery", "getRec"])
   },
   created() {
     this.getDetail(this.$route.params.id);

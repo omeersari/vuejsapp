@@ -29,12 +29,12 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Upcoming",
   computed: {
-    ...mapGetters(["upComingMovies"])
+    ...mapGetters("movies", ["upComingMovies"])
   },
   methods: {
-    ...mapActions(["upcoming"]),
+    ...mapActions("movies", ["upcoming"]),
     gotoDetails(id) {
-      this.$router.push({ name: 'Detail', params: {id}})
+      this.$router.push({ name: "Detail", params: { id } });
     }
   },
   created() {

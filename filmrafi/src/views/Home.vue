@@ -1,19 +1,18 @@
 <template>
   <div class="home">
     <Container>
-    <div class="topButtons">
-      <router-link to="/popular">Popular</router-link>
-      <router-link to="/toprated">Top Rated</router-link>
-      <router-link to="/nowplaying">Now Playing</router-link>
-      <router-link to="/upcoming">Up coming</router-link>
-    </div>
-    <div class="myPage">
-
-        <div class="latestMovie" v-if="$route.name === 'Home'">
-          <Popular/>
+      <div class="topButtons">
+        <router-link to="/popular">Popular</router-link>
+        <router-link to="/toprated">Top Rated</router-link>
+        <router-link to="/nowplaying">Now Playing</router-link>
+        <router-link to="/upcoming">Up coming</router-link>
       </div>
-      <router-view  />
-    </div>
+      <div class="myPage">
+        <div class="latestMovie" v-if="$route.name === 'Home'">
+          <Popular />
+        </div>
+        <router-view />
+      </div>
     </Container>
   </div>
 </template>
@@ -26,12 +25,10 @@ import Container from "@/components/Container";
 
 export default {
   name: "Home",
-  components: {Popular, Container},
-  computed: {
-
-  },
+  components: { Popular, Container },
+  computed: {},
   methods: {
-    ...mapActions(["genresList"])
+    ...mapActions("movies", ["genresList"])
   },
   created() {
     this.genresList();
@@ -53,7 +50,6 @@ export default {
   margin-top: 50px;
 }
 
-
 .latestMovie {
   display: flex;
   flex-direction: column;
@@ -64,7 +60,6 @@ export default {
   width: 100%;
   height: 300px;
 }
-
 
 .router-link-active {
   background-color: #bbe1fa !important;

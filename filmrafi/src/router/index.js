@@ -45,12 +45,20 @@ const routes = [
   {
     path: "/bookmarks",
     name: "BookMarks",
-    component: () => import("../views/Mybookmarks.vue")
+    component: () => import("../views/Mybookmarks.vue"),
+    meta: {
+      isRequireAuth: true
+    }
   },
   {
     path: "/login",
     name: "Login",
     component: () => import("../views/Login.vue")
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("../views/Register")
   }
 ];
 
@@ -63,5 +71,6 @@ const router = new VueRouter({
 router.afterEach(() => {
   window.scroll(0,0)
 });
+
 
 export default router;

@@ -24,10 +24,10 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Popular",
   computed: {
-    ...mapGetters(["PopMovies", "genreList"])
+    ...mapGetters("movies", ["PopMovies", "genreList"])
   },
   methods: {
-    ...mapActions(["popularMovies", "getDetail"]),
+    ...mapActions("movies", ["popularMovies", "getDetail"]),
     gotoDetails(id) {
       this.$router.push({ name: 'Detail', params: {id}})
     },

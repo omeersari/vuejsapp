@@ -1,71 +1,60 @@
 <template>
   <Container style="margin-top:100px">
-    <div class="loginForm">
+    <div class="registerForm">
       <h1>LOGIN</h1>
-      <form class="login" @submit.prevent="onLogin">
+      <form class="login" @submit.prevent="onRegister">
         <label for="">Email</label>
-        <input type="email" v-model="formModel.email" />
+        <input type="email" v-model="formModel.email" required />
         <label for="">Password</label>
-        <input type="password" v-model="formModel.password" />
-        <button type="submit">LOGIN</button>
+        <input type="password" v-model="formModel.password" required />
+        <button type="submit">REGISTER</button>
       </form>
       <p>
-        Don't have an account ?
+        Already have an account.
         <router-link
-          to="/register"
+          to="/login"
           style="margin-left:1.5px; text-decoration:underline"
         >
-          Register.
-        </router-link>
+          Sign in.</router-link
+        >
       </p>
-      <p v-if="error" style="color: red">{{error}} </p>
     </div>
   </Container>
 </template>
 
 <script>
 import Container from "@/components/Container";
-import { mapActions, mapMutations, mapGetters } from "vuex";
-
+import { mapActions } from "vuex";
 export default {
-  name: "Login",
+  name: "Register",
   data() {
     return {
       formModel: {
         email: "",
         password: ""
-      },
-      error: ""
+      }
     };
   },
   components: {
     Container
   },
-  computed: {
-    ...mapGetters('auth', ['activeUser'])
-  },
   methods: {
     ...mapActions({
+      register: "auth/register",
       login: "auth/login"
     }),
-    ...mapMutations({
-      login_user : "auth/LOGIN_USER"
-    }),
-    onLogin() {
-      this.login(this.formModel)
-      if (this.activeUser !== null) {
-        this.$router.push('/')
-      }else {
-        this.error = "Login failed please try again"
-        setTimeout( () => { this.error = "" }, 3000 )
-      }
+    onRegister() {
+      this.register(this.formModel).then(() => {
+        this.$router.push("/");
+        this.login(this.formModel)
+      });
     }
   }
 };
 </script>
 
 <style scoped>
-.loginForm {
+.registerForm {
   border: 1px solid black;
   background-color: #f9e9d1;
   width: 400px;
@@ -76,11 +65,11 @@ export default {
   border-radius: 5px;
 }
 
-.loginForm h1 {
+.registerForm h1 {
   text-align: center;
 }
 
-.loginForm p {
+.registerForm p {
   display: flex;
   justify-content: center;
 }
@@ -115,10 +104,10 @@ export default {
 }
 
 @media only screen and (max-width: 820px) {
-  .loginForm {
+  .registerForm {
     width: 300px;
   }
-  .loginForm p {
+  .registerForm p {
     display: inline;
   }
 }

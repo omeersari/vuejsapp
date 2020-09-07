@@ -6,7 +6,6 @@
           <i class="fas fa-file-video"></i>
           <span class="text"> Filmrafi </span>
         </router-link>
-
       </div>
 
       <form class="search">
@@ -15,29 +14,39 @@
       </form>
 
       <nav class="right">
-        <router-link to="/bookmarks">
-          <i v-if="($route.name === 'BookMarks')" class="fas fa-bookmark"></i>
+        <router-link v-if="activeUser" to="/bookmarks">
+          <i v-if="$route.name === 'BookMarks'" class="fas fa-bookmark"></i>
           <i v-else class="far fa-bookmark"></i>
-          <span class="text">My Favorites</span> </router-link>
+          <span class="text">My Watchlist</span>
+        </router-link>
         <a href="https://github.com/omeersari" target="_blank">
           <i @click="searchMovie" class="fab fa-github"></i>
-          <span class="text">Github</span> </a>
-        <router-link to="/login"
-          ><i class="fas fa-sign-in-alt"></i> <span class="text">Login</span> </router-link>
+          <span class="text">Github</span>
+        </a>
+        <router-link v-if="!activeUser" to="/login"
+          ><i class="fas fa-sign-in-alt"></i> <span class="text">Login</span>
+        </router-link>
+        <span v-else @click="LOGOUT"
+        > Logout
+        </span>
       </nav>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "Header",
   components: {},
   methods: {
-    searchMovie() {
-
-    }
+    ...mapMutations('auth', ['LOGOUT']),
+    searchMovie() {}
+  },
+  computed: {
+    ...mapGetters("auth", ["activeUser"])
   }
+
 };
 </script>
 
@@ -85,10 +94,14 @@ export default {
   margin-left: 5px;
 }
 
+.right span {
+  cursor: pointer;
+}
+
+
 @media only screen and (max-width: 820px) {
   .search {
     justify-content: flex-start;
-
   }
   .search input {
     width: 150px;
@@ -104,8 +117,6 @@ export default {
     display: none;
   }
 }
-
-
 
 /*
 @media only screen and (max-width: 1005px) {
