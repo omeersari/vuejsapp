@@ -26,7 +26,9 @@
           <span class="imdb">
             <img src="../assets/imdb.png" style="width: 65px; height: auto" />
             <p>{{ detailMovie.vote_average }}</p>
-            <button class="myButton">  <i class="far fa-bookmark"></i>Add To Watch List</button>
+            <button class="myButton" v-if="activeUser" @click="addToList">
+              <i class="far fa-bookmark"></i>Add To Watch List
+            </button>
           </span>
           <h4 style="font-style: italic; margin-top: 15px;">
             {{ detailMovie.tagline }}
@@ -41,7 +43,6 @@
     <Rec :rec="movieRec" />
     <router-view></router-view>
   </div>
-
 </template>
 
 <script>
@@ -63,16 +64,29 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('movies', ["detailMovie", "movieCast", "movieGalery", "movieRec"])
+    ...mapGetters("movies", [
+      "detailMovie",
+      "movieCast",
+      "movieGalery",
+      "movieRec"
+    ]),
+    ...mapGetters("auth", ["activeUser"])
   },
   methods: {
-    ...mapActions("movies", ["getDetail", "getCast", "getGalery", "getRec"])
+    ...mapActions("movies", ["getDetail", "getCast", "getGalery", "getRec"]),
+    addToList() {
+      const index = this.activeUser.bookmarks.indexOf(this.detailMovie);
+      if (index === -1) {
+        this.$store.commit("auth/ADD_TO_LIST", this.detailMovie);
+      }
+      console.log(this.detailMovie);
+    }
   },
   created() {
     this.getDetail(this.$route.params.id);
     this.getCast(this.$route.params.id);
     this.getGalery(this.$route.params.id);
-    this.getRec(this.$route.params.id)
+    this.getRec(this.$route.params.id);
   }
 };
 </script>
@@ -166,9 +180,9 @@ export default {
 }
 
 @media only screen and (max-width: 820px) {
- .head {
-   height: auto;
- }
+  .head {
+    height: auto;
+  }
   .head .about {
     height: auto;
   }

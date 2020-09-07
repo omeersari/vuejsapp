@@ -3,12 +3,11 @@ const auth = {
   state: {
     users: [],
     activeUser: null,
-    id: 0,
 
   },
   getters: {
     activeUser: state => state.activeUser,
-    userId: state => state.id,
+    userList: state => state.users
   },
   actions: {
     register({commit}, payload) {
@@ -37,6 +36,11 @@ const auth = {
     },
     LOGOUT(state) {
       state.activeUser = null
+    },
+    ADD_TO_LIST(state, payload) {
+      console.log(state.activeUser)
+      const user = state.activeUser
+      user.bookmarks.push(payload)
     }
 
   }

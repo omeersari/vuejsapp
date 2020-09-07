@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import store from "../store/";
 
 Vue.use(VueRouter);
 
@@ -53,12 +54,28 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/Login.vue")
+    component: () => import("../views/Login.vue"),
+    beforeEnter: (to, from, next) => {
+      const isUser = store.getters["auth/activeUser"];
+      if (isUser) {
+        next("/");
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/register",
     name: "Register",
-    component: () => import("../views/Register")
+    component: () => import("../views/Register"),
+    beforeEnter: (to, from, next) => {
+      const isUser = store.getters["auth/activeUser"];
+      if (isUser) {
+        next("/");
+      } else {
+        next();
+      }
+    },
   }
 ];
 
