@@ -30,7 +30,7 @@ export default {
     ...mapActions(["popularMovies", "getDetail"]),
     gotoDetails(id) {
       this.$router.push({ name: 'Detail', params: {id}})
-    }
+    },
   },
   created() {
     this.popularMovies();

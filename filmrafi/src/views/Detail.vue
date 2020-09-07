@@ -26,6 +26,7 @@
           <span class="imdb">
             <img src="../assets/imdb.png" style="width: 65px; height: auto" />
             <p>{{ detailMovie.vote_average }}</p>
+            <button class="myButton">  <i class="far fa-bookmark"></i>Add To Watch List</button>
           </span>
           <h4 style="font-style: italic; margin-top: 15px;">
             {{ detailMovie.tagline }}
@@ -122,6 +123,19 @@ export default {
 
 .right {
   margin-left: 300px;
+}
+
+.myButton {
+  padding: 1em;
+  margin-left: 30px;
+  background-color: lightgreen;
+  border: 1px green solid;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.myButton i {
+  margin-right: 5px;
 }
 
 .left {
