@@ -18,13 +18,14 @@
           Sign in.</router-link
         >
       </p>
+      <p v-if="error" style="color:red;"> {{error}} </p>
     </div>
   </Container>
 </template>
 
 <script>
 import Container from "@/components/Container";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Register",
   data() {
@@ -32,7 +33,8 @@ export default {
       formModel: {
         email: "",
         password: ""
-      }
+      },
+      error : ""
     };
   },
   components: {
@@ -44,11 +46,21 @@ export default {
       login: "auth/login"
     }),
     onRegister() {
-      this.register(this.formModel).then(() => {
-        this.$router.push("/");
-        this.login(this.formModel)
-      });
+      const index = this.userList.findIndex((obj) =>
+          obj.email === this.formModel.email)
+      if (index === -1) {
+        this.register(this.formModel).then(() => {
+          this.$router.push("/");
+          this.login(this.formModel)
+        });
+      }else {
+        this.error = "This email is already used"
+        setTimeout( () => { this.error = "" }, 3000 )
+      }
     }
+  },
+  computed: {
+    ...mapGetters('auth', ['userList'])
   }
 };
 </script>

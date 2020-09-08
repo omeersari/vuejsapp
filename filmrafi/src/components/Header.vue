@@ -41,7 +41,10 @@ export default {
     ...mapMutations("auth", ["LOGOUT"]),
     logout() {
       this.LOGOUT()
-      this.$router.push("/");
+      if (this.$route.path !== "/"){
+        this.$router.push("/");
+      }
+
     },
     searchMovie() {}
   },

@@ -34,6 +34,7 @@
               <i class="far fa-bookmark"></i>
               {{ isListed ? "Remove from Watch List" : "Add To Watch List" }}
             </button>
+            <div class="warning" v-else> To use add to watchlist please <router-link to="/login" tag="a">login.</router-link> </div>
           </span>
           <h4 style="font-style: italic; margin-top: 15px;">
             {{ detailMovie.tagline }}
@@ -207,6 +208,17 @@ export default {
   padding-top: 10px;
   color: gold;
   margin-left: 15px;
+}
+
+.warning {
+  margin-top: 10px;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.warning a {
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 820px) {
