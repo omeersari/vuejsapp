@@ -26,8 +26,13 @@
           <span class="imdb">
             <img src="../assets/imdb.png" style="width: 65px; height: auto" />
             <p>{{ detailMovie.vote_average }}</p>
-            <button class="myButton" v-if="activeUser" @click="addToList">
-              <i class="far fa-bookmark"></i>Add To Watch List
+            <button
+              v-if="activeUser"
+              :class="isListed ? 'removeButton' : 'myButton'"
+              @click="addToList"
+            >
+              <i class="far fa-bookmark"></i>
+              {{ isListed ? "Remove from Watch List" : "Add To Watch List" }}
             </button>
           </span>
           <h4 style="font-style: italic; margin-top: 15px;">
@@ -46,7 +51,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import API from "../../api";
 import Cast from "@/components/Cast";
 import Galery from "@/components/Galery";
@@ -70,16 +75,30 @@ export default {
       "movieGalery",
       "movieRec"
     ]),
+    isListed() {
+      const index = this.activeUser.bookmarks.filter(
+        a => a.id === this.detailMovie.id
+      );
+      if (index.length === 0) {
+        return false;
+      } else return true;
+    },
     ...mapGetters("auth", ["activeUser"])
   },
   methods: {
     ...mapActions("movies", ["getDetail", "getCast", "getGalery", "getRec"]),
+    ...mapMutations("auth", ["REMOVE_FROM_LIST"]),
     addToList() {
-      const index = this.activeUser.bookmarks.indexOf(this.detailMovie);
-      if (index === -1) {
-        this.$store.commit("auth/ADD_TO_LIST", this.detailMovie);
+      if (this.isListed) {
+        this.REMOVE_FROM_LIST(this.detailMovie);
+      } else {
+        const index = this.activeUser.bookmarks.find(
+          a => a.id === this.detailMovie.id
+        );
+        if (!index) {
+          this.$store.commit("auth/ADD_TO_LIST", this.detailMovie);
+        }
       }
-      console.log(this.detailMovie);
     }
   },
   created() {
@@ -148,6 +167,17 @@ export default {
   font-weight: bold;
 }
 
+.removeButton {
+  padding: 1em;
+  margin-left: 30px;
+  background-color: lightcoral;
+  border: 1px red solid;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.removeButton i {
+  margin-right: 5px;
+}
 .myButton i {
   margin-right: 5px;
 }

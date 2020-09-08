@@ -26,9 +26,7 @@
         <router-link v-if="!activeUser" to="/login"
           ><i class="fas fa-sign-in-alt"></i> <span class="text">Login</span>
         </router-link>
-        <span v-else @click="LOGOUT"
-        > Logout
-        </span>
+        <span v-else @click="logout"> Logout </span>
       </nav>
     </div>
   </div>
@@ -40,13 +38,16 @@ export default {
   name: "Header",
   components: {},
   methods: {
-    ...mapMutations('auth', ['LOGOUT']),
+    ...mapMutations("auth", ["LOGOUT"]),
+    logout() {
+      this.LOGOUT()
+      this.$router.push("/");
+    },
     searchMovie() {}
   },
   computed: {
     ...mapGetters("auth", ["activeUser"])
   }
-
 };
 </script>
 
@@ -97,7 +98,6 @@ export default {
 .right span {
   cursor: pointer;
 }
-
 
 @media only screen and (max-width: 820px) {
   .search {

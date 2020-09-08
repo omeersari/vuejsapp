@@ -22,7 +22,7 @@ const auth = {
     REGISTER_USER(state, payload) {
       payload.bookmarks = [];
       state.users.push(payload)
-      console.log(state.users)
+
     },
     LOGIN_USER(state, payload) {
       const index = state.users.findIndex(
@@ -38,9 +38,15 @@ const auth = {
       state.activeUser = null
     },
     ADD_TO_LIST(state, payload) {
-      console.log(state.activeUser)
       const user = state.activeUser
       user.bookmarks.push(payload)
+    },
+    REMOVE_FROM_LIST(state, payload) {
+      const user = state.activeUser
+      const index = user.bookmarks.findIndex(a => a.id === payload.id)
+      if (index > -1) {
+        user.bookmarks.splice(index, 1)
+      }
     }
 
   }
