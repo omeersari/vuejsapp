@@ -9,7 +9,11 @@
       </div>
 
       <form class="search">
-        <input type="text" placeholder="Search a movie" />
+        <input
+          type="text"
+          @input="debounceInput"
+          placeholder="Search a movie"
+        />
         <i class="fas fa-search"></i>
       </form>
 
@@ -20,7 +24,7 @@
           <span class="text">My Watchlist</span>
         </router-link>
         <a href="https://github.com/omeersari" target="_blank">
-          <i @click="searchMovie" class="fab fa-github"></i>
+          <i class="fab fa-github"></i>
           <span class="text">Github</span>
         </a>
         <router-link v-if="!activeUser" to="/login"
@@ -33,20 +37,28 @@
 </template>
 
 <script>
+import { debounce } from "vue-debounce";
 import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "Header",
+  data() {
+    return {
+      query: ""
+    };
+  },
   components: {},
   methods: {
     ...mapMutations("auth", ["LOGOUT"]),
     logout() {
-      this.LOGOUT()
-      if (this.$route.path !== "/"){
+      this.LOGOUT();
+      if (this.$route.path !== "/") {
         this.$router.push("/");
       }
-
     },
-    searchMovie() {}
+    debounceInput: debounce(function(e) {
+      this.$store.dispatch("movies/Search", e.target.value);
+      this.$router.push({name: "Search", params: {query: e.target.value}})
+    }, 600)
   },
   computed: {
     ...mapGetters("auth", ["activeUser"])

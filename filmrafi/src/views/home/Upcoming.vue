@@ -16,9 +16,6 @@
         <span class="title">
           {{ item.title }}
         </span>
-        <div class="genres">
-          <p v-for="(name, i) in item.genre_ids" :key="i">{{ name }},</p>
-        </div>
       </div>
     </div>
   </div>

@@ -1,66 +1,56 @@
 <template>
-  <div class="popbody">
-    <div class="popMovies" v-for="item in PopMovies" :key="item.id" @click="gotoDetails(item.id)">
-      <div class="image">
-        <img :src="`https://image.tmdb.org/t/p/original/${item.poster_path}`" />
-      </div>
-      <div class="information">
-        <span class="rate">
-          {{ item.vote_average }}
-        </span>
-        <span class="title">
-          {{ item.title }}
-        </span>
-
-      </div>
+  <div class="popMovies" @click="gotoDetails(movie.id)">
+    <div class="image">
+      <img :src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`" />
+    </div>
+    <div class="information">
+      <span class="rate">
+        {{ movie.vote_average }}
+      </span>
+      <span class="title">
+        {{ movie.title }}
+      </span>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
 export default {
-  name: "Popular",
-  computed: {
-    ...mapGetters("movies", ["PopMovies", "genreList"])
+  name: "MovieCard",
+  props: {
+    movie: {
+      type: Object,
+      required: true
+    }
   },
   methods: {
-    ...mapActions("movies", ["popularMovies", "getDetail"]),
     gotoDetails(id) {
       this.$router.push({ name: 'Detail', params: {id}})
-    },
-  },
-  created() {
-    this.popularMovies();
+    }
   }
 };
 </script>
 
-<style>
-.popbody {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 15px;
-}
+<style scoped>
 .information {
   display: flex;
   flex-direction: column;
   position: relative;
   background-color: black;
   color: white;
-  height: auto;
+  height: 100px;
   padding: 5px;
-  margin-bottom: 10px;
 }
 
 .image {
   height: 300px;
-
 }
 .popMovies {
   position: relative;
   top: 0;
   transition: top ease 0.5s;
+  width: 200px;
+  height: auto;
 }
 .popMovies:hover {
   top: -10px;
@@ -92,10 +82,6 @@ export default {
 }
 
 @media only screen and (max-width: 820px) {
-  .popbody {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
   .information {
     display: flex;
     flex-direction: column;

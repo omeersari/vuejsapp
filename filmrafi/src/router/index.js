@@ -76,6 +76,11 @@ const routes = [
         next();
       }
     },
+  },
+  {
+    path: "/search/:query",
+    name: "Search",
+    component: () => import("../views/Search")
   }
 ];
 
