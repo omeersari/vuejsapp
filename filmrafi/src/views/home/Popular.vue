@@ -1,34 +1,32 @@
 <template>
+  <div>
+  <Container>
   <div class="popbody">
-    <div class="popMovies" v-for="item in PopMovies" :key="item.id" @click="gotoDetails(item.id)">
-      <div class="image">
-        <img :src="`https://image.tmdb.org/t/p/original/${item.poster_path}`" />
-      </div>
-      <div class="information">
-        <span class="rate">
-          {{ item.vote_average }}
-        </span>
-        <span class="title">
-          {{ item.title }}
-        </span>
-
-      </div>
-    </div>
+    <MovieCard
+      v-for="item in PopMovies"
+      :key="item.id"
+      :movie="item"
+    ></MovieCard>
+  </div>
+  </Container>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import MovieCard from "@/components/MovieCard";
+import Container from "@/components/Container";
 export default {
   name: "Popular",
+  components: {
+    MovieCard,
+    Container
+  },
   computed: {
-    ...mapGetters("movies", ["PopMovies", "genreList"])
+    ...mapGetters("movies", ["PopMovies"])
   },
   methods: {
     ...mapActions("movies", ["popularMovies", "getDetail"]),
-    gotoDetails(id) {
-      this.$router.push({ name: 'Detail', params: {id}})
-    },
   },
   created() {
     this.popularMovies();
@@ -36,77 +34,17 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .popbody {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 15px;
-}
-.information {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  background-color: black;
-  color: white;
-  height: auto;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-.image {
-  height: 300px;
-
-}
-.popMovies {
-  position: relative;
-  top: 0;
-  transition: top ease 0.5s;
-}
-.popMovies:hover {
-  top: -10px;
-}
-.image img {
-  width: 100%;
-  height: 300px;
-}
-
-.rate {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  border-radius: 50%;
-  background-color: black;
-  color: yellow;
-  padding: 5px;
-}
-
-.title {
-  width: 85%;
-}
-
-.genres {
-  display: flex;
-  justify-content: flex-start;
-  font-size: 10px;
-  width: 85%;
 }
 
 @media only screen and (max-width: 820px) {
   .popbody {
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
-  .information {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    background-color: black;
-    color: white;
-    height: auto;
-  }
-  .image img {
-    width: 100%;
-    height: 300px;
   }
 }
 </style>

@@ -1,38 +1,32 @@
 <template>
-  <div class="popbody">
-    <div
-      class="popMovies"
-      v-for="(item, i) in upComingMovies"
-      :key="i"
-      @click="gotoDetails(item.id)"
-    >
-      <div class="image">
-        <img :src="`https://image.tmdb.org/t/p/original/${item.poster_path}`" />
+  <div>
+    <Container>
+      <div class="popbody">
+        <MovieCard
+          v-for="item in upComingMovies"
+          :key="item.id"
+          :movie="item"
+        ></MovieCard>
       </div>
-      <div class="information">
-        <span class="rate">
-          {{ item.vote_average }}
-        </span>
-        <span class="title">
-          {{ item.title }}
-        </span>
-      </div>
-    </div>
+    </Container>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import MovieCard from "@/components/MovieCard";
+import Container from "@/components/Container";
 export default {
   name: "Upcoming",
+  components: {
+    MovieCard,
+    Container
+  },
   computed: {
     ...mapGetters("movies", ["upComingMovies"])
   },
   methods: {
-    ...mapActions("movies", ["upcoming"]),
-    gotoDetails(id) {
-      this.$router.push({ name: "Detail", params: { id } });
-    }
+    ...mapActions("movies", ["upcoming"])
   },
   created() {
     this.upcoming();
@@ -40,4 +34,18 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.popbody {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 15px;
+}
+
+@media only screen and (max-width: 820px) {
+  .popbody {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>

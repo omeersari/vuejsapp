@@ -7,12 +7,10 @@
         <router-link to="/nowplaying">Now Playing</router-link>
         <router-link to="/upcoming">Up coming</router-link>
       </div>
-      <div class="myPage">
-        <div class="latestMovie" v-if="$route.name === 'Home'">
-          <Popular />
-        </div>
-        <router-view />
+      <div v-if="this.$route.name === 'Home'">
+        <Popular />
       </div>
+      <router-view />
     </Container>
   </div>
 </template>
