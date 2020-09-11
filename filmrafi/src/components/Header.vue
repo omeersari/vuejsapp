@@ -14,7 +14,6 @@
           @input="debounceInput"
           placeholder="Search a movie"
         />
-        <i class="fas fa-search"></i>
       </form>
 
       <nav class="right">
@@ -79,8 +78,8 @@ export default {
 }
 
 .logo {
-  justify-self: start;
-  margin-left: 5px;
+  justify-self: center;
+  margin-left: 150px;
   font-size: 30px;
 }
 
@@ -93,6 +92,8 @@ export default {
   padding-left: 20px;
   width: 342px;
   height: 38px;
+  border: 1px gray solid;
+  border-radius: 10px;
 }
 
 .search i {

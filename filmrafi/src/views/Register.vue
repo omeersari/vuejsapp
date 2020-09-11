@@ -26,6 +26,7 @@
 <script>
 import Container from "@/components/Container";
 import { mapActions, mapGetters } from "vuex";
+import firebase from 'firebase';
 export default {
   name: "Register",
   data() {
@@ -46,6 +47,12 @@ export default {
       login: "auth/login"
     }),
     onRegister() {
+      firebase.auth().createUserWithEmailAndPassword(this.formModel.email, this.formModel.password).then(user =>  {
+        alert("Your account is done" + user)
+      }, err => {alert("oops" + err)})
+
+
+      /*
       const index = this.userList.findIndex((obj) =>
           obj.email === this.formModel.email)
       if (index === -1) {
@@ -56,7 +63,7 @@ export default {
       }else {
         this.error = "This email is already used"
         setTimeout( () => { this.error = "" }, 3000 )
-      }
+      }*/
     }
   },
   computed: {
