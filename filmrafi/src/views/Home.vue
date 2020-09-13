@@ -43,6 +43,11 @@ export default {
 </script>
 
 <style scoped>
+
+.home {
+  margin-top: 90px;
+}
+
 .topButtons a {
   border: 1px solid black;
   padding: 10px;
