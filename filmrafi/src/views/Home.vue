@@ -17,19 +17,27 @@
 
 <script>
 // @ is an alias to /src
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import Popular from "@/views/home/Popular";
 import Container from "@/components/Container";
 
 export default {
   name: "Home",
   components: { Popular, Container },
-  computed: {},
+  computed: {
+    ...mapGetters("auth", ["activeUser"]),
+  },
   methods: {
-    ...mapActions("movies", ["genresList"])
+    ...mapActions("movies", ["genresList", "WatchList"]),
+    myList() {
+      this.WatchList()
+    }
   },
   created() {
     this.genresList();
+    if (this.activeUser) {
+      this.myList()
+    }
   }
 };
 </script>

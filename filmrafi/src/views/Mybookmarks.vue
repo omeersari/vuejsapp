@@ -40,8 +40,9 @@ export default {
   methods: {
     ...mapMutations("auth", ["REMOVE_FROM_LIST"]),
     ...mapActions("movies", ["WatchList"]),
-    myList() {
-      this.WatchList()
+
+    //myList() {
+      //this.WatchList()
       /*
       let myWatchList = firebase
         .firestore()
@@ -58,7 +59,7 @@ export default {
       });
       this.favs = this.activeUser.bookmarks;
       */
-    },
+    //},
     gotoDetail(id) {
       this.$router.push({ name: "Detail", params: { id } });
     },
@@ -73,11 +74,11 @@ export default {
       //this.REMOVE_FROM_LIST(item);
     }
   },
-  created() {
-    if (this.activeUser) {
-      this.myList();
-    }
-  }
+  //created() {
+    //if (this.activeUser) {
+      //this.myList();
+    //}
+  //}
 };
 </script>
 
