@@ -18,15 +18,16 @@
           Sign in.</router-link
         >
       </p>
-      <p v-if="error" style="color:red;"> {{error}} </p>
+      <p v-if="error" style="color:red;">{{ error }}</p>
     </div>
   </Container>
 </template>
 
 <script>
 import Container from "@/components/Container";
-import { mapActions, mapGetters } from "vuex";
-import firebase from 'firebase';
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import firebase from "firebase";
+
 export default {
   name: "Register",
   data() {
@@ -35,7 +36,7 @@ export default {
         email: "",
         password: ""
       },
-      error : ""
+      error: ""
     };
   },
   components: {
@@ -44,13 +45,21 @@ export default {
   methods: {
     ...mapActions({
       register: "auth/register",
-      login: "auth/login"
+      login: "auth/login",
     }),
+    ...mapMutations('auth', ['SET_USER']),
     onRegister() {
-      firebase.auth().createUserWithEmailAndPassword(this.formModel.email, this.formModel.password).then(user =>  {
-        alert("Your account is done" + user)
-      }, err => {alert("oops" + err)})
-
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(
+          this.formModel.email,
+          this.formModel.password
+        )
+        .then(() => {
+          this.SET_USER(true);
+          this.$router.push("/");
+        })
+        .catch(err => (this.error = err));
 
       /*
       const index = this.userList.findIndex((obj) =>
@@ -67,7 +76,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('auth', ['userList'])
+    ...mapGetters("auth", ["userList"])
   }
 };
 </script>

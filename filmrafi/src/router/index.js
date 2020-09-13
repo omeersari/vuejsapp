@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import store from "../store/";
+
+import firebase from "firebase";
 
 Vue.use(VueRouter);
 
@@ -30,7 +31,7 @@ const routes = [
         path: "upcoming",
         name: "Upcoming",
         component: () => import("../views/home/Upcoming.vue")
-      },
+      }
     ]
   },
   {
@@ -40,7 +41,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Detail.vue"),
+      import(/* webpackChunkName: "about" */ "../views/Detail.vue")
   },
 
   {
@@ -48,34 +49,18 @@ const routes = [
     name: "BookMarks",
     component: () => import("../views/Mybookmarks.vue"),
     meta: {
-      isRequireAuth: true
+      requiresAuth: true
     }
   },
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/Login.vue"),
-    beforeEnter: (to, from, next) => {
-      const isUser = store.getters["auth/activeUser"];
-      if (isUser) {
-        next("/");
-      } else {
-        next();
-      }
-    },
+    component: () => import("../views/Login.vue")
   },
   {
     path: "/register",
     name: "Register",
-    component: () => import("../views/Register"),
-    beforeEnter: (to, from, next) => {
-      const isUser = store.getters["auth/activeUser"];
-      if (isUser) {
-        next("/");
-      } else {
-        next();
-      }
-    },
+    component: () => import("../views/Register")
   },
   {
     path: "/search/:query",
@@ -90,9 +75,19 @@ const router = new VueRouter({
   routes
 });
 
-router.afterEach(() => {
-  window.scroll(0,0)
+router.beforeEach((to, from, next) => {
+  const currentUser = firebase.auth().currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !currentUser) {
+    next("/login");
+  } else {
+    next();
+  }
 });
 
+router.afterEach(() => {
+  window.scroll(0, 0);
+});
 
 export default router;

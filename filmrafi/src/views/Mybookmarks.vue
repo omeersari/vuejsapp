@@ -2,15 +2,15 @@
   <Container>
     <h1>Watchlist</h1>
     <div class="films">
-      <div v-for="(item, id) in favs" :key="id" class="filmCard">
+      <div v-for="(item, id) in watchList" :key="id" class="filmCard">
         <img
-          @click="gotoDetail(item.id)"
+          @click="gotoDetail(item.movie.id)"
           class="filmCardImage"
-          :src="`${API.IMAGE_URL}${item.poster_path}`"
+          :src="`${API.IMAGE_URL}${item.movie.poster_path}`"
         />
         <div class="info">
-          <p>{{ item.original_title }}</p>
-          <button @click="remove(item)">Remove</button>
+          <p>{{ item.movie.original_title }}</p>
+          <button @click="remove(item.id)">Remove</button>
         </div>
       </div>
     </div>
@@ -20,7 +20,8 @@
 <script>
 import Container from "@/components/Container";
 import API from "../../api";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
+import firebase from "firebase";
 export default {
   name: "BookMarks",
   components: {
@@ -28,23 +29,48 @@ export default {
   },
   data() {
     return {
-      favs: {},
+      favs: [],
       API
     };
   },
   computed: {
-    ...mapGetters("auth", ["activeUser"])
+    ...mapGetters("auth", ["activeUser"]),
+    ...mapGetters("movies", ["watchList"])
   },
   methods: {
     ...mapMutations("auth", ["REMOVE_FROM_LIST"]),
+    ...mapActions("movies", ["WatchList"]),
     myList() {
+      this.WatchList()
+      /*
+      let myWatchList = firebase
+        .firestore()
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid)
+        .collection("watchlist");
+      myWatchList.onSnapshot(snap => {
+        this.favs = [];
+        snap.forEach(doc => {
+          let movie = doc.data();
+          movie.id = doc.id;
+          this.favs.push(movie);
+        });
+      });
       this.favs = this.activeUser.bookmarks;
+      */
     },
     gotoDetail(id) {
       this.$router.push({ name: "Detail", params: { id } });
     },
-    remove(item) {
-      this.REMOVE_FROM_LIST(item);
+    remove(docId) {
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid)
+        .collection("watchlist")
+        .doc(docId)
+        .delete();
+      //this.REMOVE_FROM_LIST(item);
     }
   },
   created() {

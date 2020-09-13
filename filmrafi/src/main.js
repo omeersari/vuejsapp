@@ -5,6 +5,7 @@ import store from "./store";
 import vueDebounce from "vue-debounce";
 import firebase from "firebase";
 
+
 Vue.use(vueDebounce, {
   cancelonempty: true
 });
@@ -25,8 +26,15 @@ firebase.analytics();
 
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount("#app");
+let app;
+firebase.auth().onAuthStateChanged(() => {
+  if (!app) {
+    app = new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount("#app");
+  }
+})
+
+

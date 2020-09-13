@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import firebase from "firebase";
 
 Vue.use(Vuex);
 const movies = {
@@ -17,6 +18,7 @@ const movies = {
     galeryOfMovie: [],
     recommadations: [],
     search: [],
+    WatchList: [],
   },
   getters: {
     PopMovies: state => state.PopularMovies,
@@ -29,13 +31,15 @@ const movies = {
     movieCast: state => state.castOfMovie,
     movieGalery: state => state.galeryOfMovie,
     movieRec: state => state.recommadations,
-    searchResults: state => state.search
+    searchResults: state => state.search,
+    watchList: state => state.WatchList
   },
   mutations: {
     POPULAR_MOVIES(state, movies) {
       state.PopularMovies = movies;
     },
     GET_DETAIL(state, detail) {
+      detail.isListed = false;
       state.detailMovie = detail;
     },
     GENRES_LIST(state, genres) {
@@ -65,6 +69,9 @@ const movies = {
     },
     GET_RESULTS(state, payload) {
       state.search = payload.results;
+    },
+    GET_FAV_LIST(state, payload) {
+      state.WatchList = payload
     }
   },
   actions: {
@@ -132,6 +139,22 @@ const movies = {
         );
         commit("GET_RESULTS", response.data);
       }
+    },
+    async WatchList({ commit }) {
+      let myWatchList = await firebase
+        .firestore()
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid)
+        .collection("watchlist");
+      myWatchList.onSnapshot(snap => {
+        const favs = [];
+        snap.forEach(doc => {
+          let movie = doc.data();
+          movie.id = doc.id;
+          favs.push(movie);
+        });
+        commit("GET_FAV_LIST", favs);
+      });
     }
   },
   modules: {}

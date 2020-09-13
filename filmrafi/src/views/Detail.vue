@@ -28,13 +28,16 @@
             <p>{{ detailMovie.vote_average }}</p>
             <button
               v-if="activeUser"
-              :class="isListed ? 'removeButton' : 'myButton'"
+              :class="isAdded ? 'removeButton' : 'myButton'"
               @click="addToList"
             >
               <i class="far fa-bookmark"></i>
-              {{ isListed ? "Remove from Watch List" : "Add To Watch List" }}
+              {{ isAdded ? "Remove from WatchList" : "Add To Watch List" }}
             </button>
-            <div class="warning" v-else> To use add to watchlist please <router-link to="/login" tag="a">login.</router-link> </div>
+            <div class="warning" v-else>
+              To use add to watchlist please
+              <router-link to="/login" tag="a">login.</router-link>
+            </div>
           </span>
           <h4 style="font-style: italic; margin-top: 15px;">
             {{ detailMovie.tagline }}
@@ -57,6 +60,7 @@ import API from "../../api";
 import Cast from "@/components/Cast";
 import Galery from "@/components/Galery";
 import Rec from "@/components/Rec";
+import firebase from "firebase";
 export default {
   name: "Detail",
   components: {
@@ -74,23 +78,40 @@ export default {
       "detailMovie",
       "movieCast",
       "movieGalery",
-      "movieRec"
+      "movieRec",
+      "watchList"
     ]),
+    ...mapGetters("auth", ["activeUser"]),
+    isAdded() {
+      const detail = this.watchList.find(
+        item => item.movie.id === this.detailMovie.id
+      );
+
+      if ( detail && detail.isListed === true) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    /*
     isListed() {
+
+      
       const index = this.activeUser.bookmarks.filter(
         a => a.id === this.detailMovie.id
       );
       if (index.length === 0) {
         return false;
       } else return true;
-    },
-    ...mapGetters("auth", ["activeUser"])
+      
+    },*/
   },
   methods: {
     ...mapActions("movies", ["getDetail", "getCast", "getGalery", "getRec"]),
     ...mapMutations("auth", ["REMOVE_FROM_LIST"]),
+    /*
     addToList() {
-      if (this.isListed) {
+      if (true) {
         this.REMOVE_FROM_LIST(this.detailMovie);
       } else {
         const index = this.activeUser.bookmarks.find(
@@ -100,6 +121,32 @@ export default {
           this.$store.commit("auth/ADD_TO_LIST", this.detailMovie);
         }
       }
+    }*/
+    addToList() {
+      if (this.isAdded) {
+        const docId = this.watchList.filter(item => item.movie.id === this.detailMovie.id)[0].id;
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(firebase.auth().currentUser.uid)
+          .collection("watchlist")
+          .doc(docId)
+          .delete();
+      } else {
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(firebase.auth().currentUser.uid)
+          .collection("watchlist")
+          .add({
+            movie: this.detailMovie,
+            isListed: true
+          });
+      }
+      /*
+      firebase.database().ref('users').where('')
+      firebase.database().ref('users').doc(this.activeUser.uid).push
+      (this.detailMovie)*/
     }
   },
   created() {

@@ -38,6 +38,7 @@
 <script>
 import { debounce } from "vue-debounce";
 import { mapGetters, mapMutations } from "vuex";
+import firebase from "firebase";
 export default {
   name: "Header",
   data() {
@@ -47,16 +48,25 @@ export default {
   },
   components: {},
   methods: {
-    ...mapMutations("auth", ["LOGOUT"]),
+    ...mapMutations("auth", ["LOGOUT", "SET_USER"]),
     logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.SET_USER(null);
+          if (this.$route.path !== "/") {
+            this.$router.replace("/")}
+        });
+      /*
       this.LOGOUT();
       if (this.$route.path !== "/") {
         this.$router.push("/");
-      }
+      }*/
     },
     debounceInput: debounce(function(e) {
       this.$store.dispatch("movies/Search", e.target.value);
-      this.$router.push({name: "Search", params: {query: e.target.value}})
+      this.$router.push({ name: "Search", params: { query: e.target.value } });
     }, 600)
   },
   computed: {

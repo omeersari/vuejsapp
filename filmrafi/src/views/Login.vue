@@ -18,7 +18,7 @@
           Register.
         </router-link>
       </p>
-      <p v-if="error" style="color: red">{{error}} </p>
+      <p v-if="error" style="color: red">{{ error }}</p>
     </div>
   </Container>
 </template>
@@ -26,7 +26,7 @@
 <script>
 import Container from "@/components/Container";
 import { mapActions, mapMutations, mapGetters } from "vuex";
-import firebase from "firebase"
+import firebase from "firebase";
 
 export default {
   name: "Login",
@@ -43,23 +43,25 @@ export default {
     Container
   },
   computed: {
-    ...mapGetters('auth', ['activeUser'])
+    ...mapGetters("auth", ["activeUser"])
   },
   methods: {
     ...mapActions({
       login: "auth/login"
     }),
-    ...mapMutations({
-      login_user : "auth/LOGIN_USER"
-    }),
+    ...mapMutations("auth", ["SET_USER"]),
     onLogin() {
-      firebase.auth().signInWithEmailAndPassword(this.formModel.email, this.formModel.password).then(user => {
-        alert("You are now connected" + user)
-        this.$router.push("/")
-      },
-      err => (alert("oops" + err)))
-
-
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(
+          this.formModel.email,
+          this.formModel.password
+        )
+        .then(() => {
+          this.SET_USER(true)
+          this.$router.push("/");
+        })
+        .catch(err => (this.error = err));
       /*
       this.login(this.formModel)
       if (this.activeUser !== null) {
