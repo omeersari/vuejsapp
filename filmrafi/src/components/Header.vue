@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="navigation">
+    <div class="navigation" :class="{changeColor : scrollPosition > 200}">
+      <div class="container">
       <div class="logo">
         <router-link to="/">
           <i class="fas fa-file-video"></i>
@@ -31,22 +32,28 @@
         </router-link>
         <span v-else @click="logout"> Logout </span>
       </nav>
+      </div>
     </div>
+
   </div>
 </template>
 
 <script>
 import { debounce } from "vue-debounce";
 import { mapGetters, mapMutations } from "vuex";
+
 import firebase from "firebase";
 export default {
   name: "Header",
   data() {
     return {
-      query: ""
+      query: "",
+      scrollPosition: null,
     };
   },
-  components: {},
+  components: {
+
+  },
   methods: {
     ...mapMutations("auth", ["LOGOUT", "SET_USER"]),
     logout() {
@@ -58,11 +65,15 @@ export default {
           if (this.$route.path !== "/") {
             this.$router.replace("/")}
         });
+
       /*
       this.LOGOUT();
       if (this.$route.path !== "/") {
         this.$router.push("/");
       }*/
+    },
+    updateScroll() {
+      this.scrollPosition = window.scrollY
     },
     debounceInput: debounce(function(e) {
       this.$store.dispatch("movies/Search", e.target.value);
@@ -71,25 +82,37 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["activeUser"])
+  },
+  mounted() {
+    window.addEventListener('scroll', this.updateScroll);
   }
 };
 </script>
 
 <style scoped>
 .navigation {
+  background-color: #0f4c75;
+  color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1080px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 2fr;
   align-items: center;
   height: auto;
   padding: 1em;
   font-size: 20px;
-  background-color: #0f4c75;
-  color: white;
 }
 
 .logo {
-  justify-self: center;
-  margin-left: 150px;
+  justify-self: flex-start;
   font-size: 30px;
 }
 
@@ -123,6 +146,11 @@ export default {
 
 .right span {
   cursor: pointer;
+}
+
+.changeColor {
+  background-color: white;
+  color: black;
 }
 
 @media only screen and (max-width: 820px) {

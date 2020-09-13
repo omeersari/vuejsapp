@@ -163,6 +163,7 @@ export default {
   position: relative;
   z-index: 1;
   height: 500px;
+  top: 90px;
   background-color: lightskyblue;
 }
 .head .about {
