@@ -8,6 +8,7 @@
           :movie="item"
         ></MovieCard>
       </div>
+      <Pagination :pageNumber="this.$route.params.page" @changeRoute="changeRoute"/>
     </Container>
   </div>
 </template>
@@ -16,20 +17,28 @@
 import { mapGetters, mapActions } from "vuex";
 import Container from "@/components/Container";
 import MovieCard from "@/components/MovieCard";
+import Pagination from "@/components/Pagination";
 export default {
   name: "TopRated",
   components: {
     Container,
-    MovieCard
+    MovieCard,
+    Pagination
   },
   computed: {
     ...mapGetters("movies", ["topRated"])
   },
   methods: {
     ...mapActions("movies", ["topRatedMovies"]),
+    changeRoute(page) {
+      this.$router.replace({params: {page}})
+    },
+    getPop() {
+      this.topRatedMovies(this.$route.params.page)
+    }
   },
   created() {
-    this.topRatedMovies();
+    this.getPop();
   }
 };
 </script>
@@ -47,6 +56,4 @@ export default {
     grid-template-columns: 1fr 1fr;
   }
 }
-
-
 </style>

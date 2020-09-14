@@ -8,6 +8,7 @@
           :movie="item"
         ></MovieCard>
       </div>
+      <Pagination :pageNumber="this.$route.params.page" @changeRoute="changeRoute" />
     </Container>
   </div>
 </template>
@@ -16,26 +17,39 @@
 import { mapActions, mapGetters } from "vuex";
 import MovieCard from "@/components/MovieCard";
 import Container from "@/components/Container";
+import Pagination from "@/components/Pagination";
 export default {
   name: "Upcoming",
+  data() {
+    return {
+      page: 1
+    };
+  },
   components: {
     MovieCard,
-    Container
+    Container,
+    Pagination
   },
   computed: {
     ...mapGetters("movies", ["upComingMovies"])
   },
   methods: {
-    ...mapActions("movies", ["upcoming"])
+    ...mapActions("movies", ["upcoming"]),
+    changeRoute(page) {
+      this.$router.replace({params: {page}})
+    },
+    getPop() {
+      this.upcoming(this.$route.params.page)
+    }
   },
   created() {
-    this.upcoming();
-  }
+    this.getPop();
+  },
+
 };
 </script>
 
 <style scoped>
-
 .popbody {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

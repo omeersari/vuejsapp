@@ -78,7 +78,7 @@ export default {
 <style scoped>
 .loginForm {
   border: 1px solid black;
-  background-color: #f9e9d1;
+  background-color: royalblue;
   width: 400px;
   padding: 30px;
   height: auto;
@@ -123,6 +123,12 @@ export default {
   font-weight: bold;
   background-color: #33312d;
   color: white;
+  transition: 300ms all;
+}
+
+.login button:hover {
+  background-color: white;
+  color: black;
 }
 
 @media only screen and (max-width: 820px) {

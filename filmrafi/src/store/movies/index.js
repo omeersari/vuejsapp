@@ -18,7 +18,7 @@ const movies = {
     galeryOfMovie: [],
     recommadations: [],
     search: [],
-    WatchList: [],
+    WatchList: []
   },
   getters: {
     PopMovies: state => state.PopularMovies,
@@ -71,7 +71,7 @@ const movies = {
       state.search = payload.results;
     },
     GET_FAV_LIST(state, payload) {
-      state.WatchList = payload
+      state.WatchList = payload;
     }
   },
   actions: {
@@ -81,9 +81,9 @@ const movies = {
       );
       commit("GENRES_LIST", response.data);
     },
-    async popularMovies({ commit }) {
+    async popularMovies({ commit }, page) {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=1"
+        `https://api.themoviedb.org/3/movie/popular?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=${page}`
       );
       commit("POPULAR_MOVIES", response.data.results);
     },
@@ -93,24 +93,21 @@ const movies = {
       );
       commit("GET_DETAIL", response.data);
     },
-    async topRatedMovies({ commit }) {
+    async topRatedMovies({ commit }, page) {
       const response = await axios.get(
-        "" +
-          "https://api.themoviedb.org/3/movie/top_rated?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=1"
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=${page}`
       );
       commit("TOP_RATED_MOVIES", response.data.results);
     },
-    async upcoming({ commit }) {
+    async upcoming({ commit }, page) {
       const response = await axios.get(
-        "" +
-          "https://api.themoviedb.org/3/movie/upcoming?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=1"
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=${page}`
       );
       commit("UPCOMING", response.data.results);
     },
-    async nowplaying({ commit }) {
+    async nowplaying({ commit }, page) {
       const response = await axios.get(
-        "" +
-          "https://api.themoviedb.org/3/movie/now_playing?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=1"
+        `https://api.themoviedb.org/3/movie/now_playing?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=${page}`
       );
       commit("NOW_PLAYING", response.data.results);
     },

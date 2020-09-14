@@ -4,11 +4,14 @@ import router from "./router";
 import store from "./store";
 import vueDebounce from "vue-debounce";
 import firebase from "firebase";
+import paginate from "vuejs-paginate"
 
 
 Vue.use(vueDebounce, {
   cancelonempty: true
 });
+
+Vue.component('paginate', paginate)
 
 var firebaseConfig = {
   apiKey: "AIzaSyBuL3bjEH2_IrHK46-Brc2uKcY_SKu2RmQ",

@@ -3,11 +3,12 @@
     <Container>
       <div class="popbody">
         <MovieCard
-            v-for="item in nowPlayingMovies"
-            :key="item.id"
-            :movie="item"
+          v-for="item in nowPlayingMovies"
+          :key="item.id"
+          :movie="item"
         ></MovieCard>
       </div>
+      <Pagination :pageNumber="this.$route.params.page" @changeRoute="changeRoute" />
     </Container>
   </div>
 </template>
@@ -16,19 +17,28 @@
 import { mapActions, mapGetters } from "vuex";
 import Container from "@/components/Container";
 import MovieCard from "@/components/MovieCard";
+import Pagination from "@/components/Pagination";
 export default {
   name: "NowPlaying",
   components: {
-    Container, MovieCard
+    Container,
+    MovieCard,
+    Pagination
   },
   computed: {
     ...mapGetters("movies", ["nowPlayingMovies"])
   },
   methods: {
     ...mapActions("movies", ["nowplaying"]),
+    changeRoute(page) {
+      this.$router.replace({params: {page}})
+    },
+    getPop() {
+      this.nowplaying(this.$route.params.page);
+    }
   },
   created() {
-    this.nowplaying();
+    this.getPop();
   }
 };
 </script>
@@ -46,5 +56,4 @@ export default {
     grid-template-columns: 1fr 1fr;
   }
 }
-
 </style>

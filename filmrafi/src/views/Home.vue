@@ -2,10 +2,18 @@
   <div class="home">
     <Container>
       <div class="topButtons">
-        <router-link to="/popular">Popular</router-link>
-        <router-link to="/toprated">Top Rated</router-link>
-        <router-link to="/nowplaying">Now Playing</router-link>
-        <router-link to="/upcoming">Up coming</router-link>
+        <router-link :to="{ name: 'Popular', params: { page: 1 } }"
+          >Popular</router-link
+        >
+        <router-link :to="{ name: 'TopRated', params: { page: 1 } }"
+          >Top Rated</router-link
+        >
+        <router-link :to="{ name: 'NowPlaying', params: { page: 1 } }"
+          >Now Playing</router-link
+        >
+        <router-link :to="{ name: 'Upcoming', params: { page: 1 } }"
+          >Up coming</router-link
+        >
       </div>
       <div v-if="this.$route.name === 'Home'">
         <Popular />
@@ -25,25 +33,25 @@ export default {
   name: "Home",
   components: { Popular, Container },
   computed: {
-    ...mapGetters("auth", ["activeUser"]),
+    ...mapGetters("auth", ["activeUser"])
   },
   methods: {
-    ...mapActions("movies", ["genresList", "WatchList"]),
+    ...mapActions("movies", ["genresList", "WatchList", "popularMovies"]),
     myList() {
-      this.WatchList()
+      this.WatchList();
     }
   },
   created() {
     this.genresList();
     if (this.activeUser) {
-      this.myList()
-    }
+      this.myList();
+    };
+    this.popularMovies(1)
   }
 };
 </script>
 
 <style scoped>
-
 .home {
   margin-top: 90px;
 }
@@ -55,6 +63,12 @@ export default {
   color: white;
   border-radius: 5px;
   margin-right: 5px;
+  transition: 300ms all;
+}
+
+.topButtons a:hover {
+  background-color: white;
+  color: black;
 }
 
 .myPage {

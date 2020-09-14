@@ -78,7 +78,7 @@ export default {
     debounceInput: debounce(function(e) {
       this.$store.dispatch("movies/Search", e.target.value);
       this.$router.push({ name: "Search", params: { query: e.target.value } });
-    }, 600)
+    }, 300)
   },
   computed: {
     ...mapGetters("auth", ["activeUser"])
@@ -97,6 +97,7 @@ export default {
   width: 100%;
   top: 0;
   z-index: 2;
+  transition: 300ms all;
 }
 
 .container {
