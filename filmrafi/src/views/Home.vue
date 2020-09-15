@@ -99,8 +99,6 @@ export default {
   .topButtons a {
     border: 1px solid black;
     padding: 5px;
-    background-color: #0f4c75;
-    color: white;
     border-radius: 5px;
     margin-right: 2px;
   }

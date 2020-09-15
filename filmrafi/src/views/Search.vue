@@ -39,4 +39,12 @@ export default {
 h1 {
   color: white;
 }
+
+@media only screen and (max-width: 820px) {
+  .popbody {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
 </style>

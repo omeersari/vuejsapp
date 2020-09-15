@@ -1,40 +1,39 @@
 <template>
   <div>
-    <div class="navigation" :class="{changeColor : scrollPosition > 200}">
-      <div class="container">
-      <div class="logo">
-        <router-link to="/">
-          <i class="fas fa-file-video"></i>
-          <span class="text"> Filmrafi </span>
-        </router-link>
-      </div>
+    <div class="navigation" :class="{ changeColor: scrollPosition > 200 }">
+      <div :class="isDetail ? 'containerDetail' : 'container'">
+        <div class="logo">
+          <router-link to="/">
+            <i class="fas fa-file-video"></i>
+            <span class="text"> Filmrafi </span>
+          </router-link>
+        </div>
 
-      <form class="search">
-        <input
-          type="text"
-          @input="debounceInput"
-          placeholder="Search a movie"
-        />
-      </form>
+        <form class="search">
+          <input
+            type="text"
+            @input="debounceInput"
+            placeholder="Search a movie"
+          />
+        </form>
 
-      <nav class="right">
-        <router-link v-if="activeUser" to="/bookmarks">
-          <i v-if="$route.name === 'BookMarks'" class="fas fa-bookmark"></i>
-          <i v-else class="far fa-bookmark"></i>
-          <span class="text">My Watchlist</span>
-        </router-link>
-        <a href="https://github.com/omeersari" target="_blank">
-          <i class="fab fa-github"></i>
-          <span class="text">Github</span>
-        </a>
-        <router-link v-if="!activeUser" to="/login"
-          ><i class="fas fa-sign-in-alt"></i> <span class="text">Login</span>
-        </router-link>
-        <span v-else @click="logout"> Logout </span>
-      </nav>
+        <nav class="right">
+          <router-link v-if="activeUser" to="/bookmarks" class="bookmarks">
+            <i v-if="$route.name === 'BookMarks'" class="fas fa-bookmark"></i>
+            <i v-else class="far fa-bookmark"></i>
+            <span class="text">My Watchlist</span>
+          </router-link>
+          <a href="https://github.com/omeersari" class="github" target="_blank">
+            <i class="fab fa-github"></i>
+            <span class="text">Github</span>
+          </a>
+          <router-link v-if="!activeUser" to="/login"
+            ><i class="fas fa-sign-in-alt"></i> <span class="text">Login</span>
+          </router-link>
+          <span v-else @click="logout"> Logout </span>
+        </nav>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -48,11 +47,8 @@ export default {
   data() {
     return {
       query: "",
-      scrollPosition: null,
+      scrollPosition: null
     };
-  },
-  components: {
-
   },
   methods: {
     ...mapMutations("auth", ["LOGOUT", "SET_USER"]),
@@ -63,7 +59,8 @@ export default {
         .then(() => {
           this.SET_USER(null);
           if (this.$route.path !== "/") {
-            this.$router.replace("/")}
+            this.$router.replace("/");
+          }
         });
 
       /*
@@ -73,7 +70,7 @@ export default {
       }*/
     },
     updateScroll() {
-      this.scrollPosition = window.scrollY
+      this.scrollPosition = window.scrollY;
     },
     debounceInput: debounce(function(e) {
       this.$store.dispatch("movies/Search", e.target.value);
@@ -81,10 +78,15 @@ export default {
     }, 300)
   },
   computed: {
-    ...mapGetters("auth", ["activeUser"])
+    ...mapGetters("auth", ["activeUser"]),
+    isDetail() {
+      if (this.$route.name === "Detail") {
+        return true;
+      } else return false;
+    }
   },
   mounted() {
-    window.addEventListener('scroll', this.updateScroll);
+    window.addEventListener("scroll", this.updateScroll);
   }
 };
 </script>
@@ -104,6 +106,18 @@ export default {
   margin-left: auto;
   margin-right: auto;
   max-width: 1080px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  align-items: center;
+  height: auto;
+  padding: 1em;
+  font-size: 20px;
+}
+
+.containerDetail {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
   align-items: center;
@@ -139,10 +153,14 @@ export default {
 
 .right {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
 }
-.text {
-  margin-left: 5px;
+.github {
+  margin-right: 30px;
+}
+
+.bookmarks {
+  margin-right: 30px;
 }
 
 .right span {
@@ -150,7 +168,7 @@ export default {
 }
 
 .changeColor {
-  background-color: #F7ECE1;
+  background-color: #f7ece1;
   color: black;
 }
 

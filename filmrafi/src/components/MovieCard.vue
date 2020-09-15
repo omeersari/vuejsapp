@@ -4,11 +4,11 @@
       <img :src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`" />
     </div>
     <div class="information">
-      <span class="rate">
-        {{ movie.vote_average }}
-      </span>
       <span class="title">
         {{ movie.title }}
+      </span>
+      <span class="rate">
+        {{ movie.vote_average }}
       </span>
     </div>
   </div>
@@ -34,12 +34,12 @@ export default {
 <style scoped>
 .information {
   display: flex;
-  flex-direction: column;
-  position: relative;
+  justify-content: space-between;
   background-color: black;
   color: white;
   height: 100px;
-  padding: 5px;
+  padding: 10px;
+  align-items: center;
 }
 
 .image {
@@ -61,18 +61,16 @@ export default {
 }
 
 .rate {
-  position: absolute;
-  top: 0px;
-  right: 0px;
   border-radius: 50%;
-  background-color: black;
-  color: yellow;
-  padding: 5px;
+  background-color: #242038;
+  color: white;
+  padding-top: 10px;
+  border: 1px solid white;
+  width: 48px;
+  height: 48px;
+  text-align: center;
 }
 
-.title {
-  width: 85%;
-}
 
 .genres {
   display: flex;

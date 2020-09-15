@@ -1,6 +1,6 @@
 <template>
   <Container style="margin-top:100px">
-    <div class="loginForm">
+    <div class="loginForm" v-if="isLoading">
       <h1>LOGIN</h1>
       <form class="login" @submit.prevent="onLogin">
         <label for="">Email</label>
@@ -9,15 +9,10 @@
         <input type="password" v-model="formModel.password" />
         <button type="submit">LOGIN</button>
       </form>
-      <p>
-        Don't have an account ?
-        <router-link
-          to="/register"
-          style="margin-left:1.5px; text-decoration:underline"
-        >
-          Register.
-        </router-link>
-      </p>
+      <div class="bottom">
+        <p>Don't have an account ?</p>
+        <p class="register" @click="goToRegister">Register.</p>
+      </div>
       <p v-if="error" style="color: red">{{ error }}</p>
     </div>
   </Container>
@@ -36,7 +31,8 @@ export default {
         email: "",
         password: ""
       },
-      error: ""
+      error: "",
+      isLoading: true
     };
   },
   components: {
@@ -49,6 +45,7 @@ export default {
     ...mapActions({
       login: "auth/login"
     }),
+    ...mapMutations("movies", ["SET_LOADING"]),
     ...mapMutations("auth", ["SET_USER"]),
     onLogin() {
       firebase
@@ -58,7 +55,7 @@ export default {
           this.formModel.password
         )
         .then(() => {
-          this.SET_USER(true)
+          this.SET_USER(true);
           this.$router.push("/");
         })
         .catch(err => (this.error = err));
@@ -70,7 +67,15 @@ export default {
         this.error = "Login failed please try again"
         setTimeout( () => { this.error = "" }, 3000 )
       }*/
+    },
+    goToRegister() {
+      this.isLoading = false
+      this.SET_LOADING(true)
+      setTimeout(() => this.$router.push({ path: "/register" }), 1000);
     }
+  },
+  created() {
+    this.SET_LOADING(false)
   }
 };
 </script>
@@ -130,6 +135,17 @@ export default {
 .login button:hover {
   background-color: white;
   color: black;
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+}
+
+.register {
+  margin-left: 2px;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 820px) {

@@ -1,13 +1,18 @@
 <template>
-  <div class="detail" :style="
-       `background-image: url(${API.IMAGE_URL}${detailMovie.backdrop_path})`
-  ">
+  <div
+    class="detail"
+    :style="
+      `background-image: url(${API.IMAGE_URL}${detailMovie.backdrop_path})`
+    "
+  >
     <div class="head">
       <div class="title">
         <h1>{{ detailMovie.title }}</h1>
-        <p>{{ detailMovie.vote_average }}</p>
+        <span class="imdb">{{ detailMovie.vote_average }}</span>
+      </div>
+      <div class="genres">
         <small v-for="(genres, id) in detailMovie.genres" :key="id">
-          <span class="genres">{{ genres.name }}</span>
+          <span>{{ genres.name }}</span>
         </small>
       </div>
       <div class="movie">
@@ -18,23 +23,26 @@
           />
         </div>
         <div class="right">
-          <small> Release Date: {{ detailMovie.release_date }} </small>
-          <small> Duration: {{ detailMovie.runtime }} min</small>
-          <span class="imdb">
-            <p>{{ detailMovie.vote_average }}</p>
-            <button
-              v-if="activeUser"
-              :class="isAdded ? 'removeButton' : 'myButton'"
-              @click="addToList"
-            >
-              <i class="far fa-bookmark"></i>
-              {{ isAdded ? "Remove from WatchList" : "Add To Watch List" }}
-            </button>
-            <div class="warning" v-else>
-              To use add to watchlist please
-              <router-link to="/login" tag="a">login.</router-link>
-            </div>
-          </span>
+          <p style="display: inline-block">
+            Release Date: {{ detailMovie.release_date }}
+          </p>
+          <p style="display:inline-block; margin-left: 20px">
+            Duration: {{ detailMovie.runtime }} min
+          </p>
+
+          <button
+            v-if="activeUser"
+            :class="isAdded ? 'removeButton' : 'myButton'"
+            @click="addToList"
+          >
+            <i class="far fa-bookmark"></i>
+            {{ isAdded ? "Remove from WatchList" : "Add To Watch List" }}
+          </button>
+          <div class="warning" v-else>
+            To use add to watchlist please
+            <router-link to="/login" tag="a">login.</router-link>
+          </div>
+
           <h4 style="font-style: italic; margin-top: 15px;">
             {{ detailMovie.tagline }}
           </h4>
@@ -83,7 +91,7 @@ export default {
         item => item.movie.id === this.detailMovie.id
       );
 
-      if ( detail && detail.isListed === true) {
+      if (detail && detail.isListed === true) {
         return true;
       } else {
         return false;
@@ -120,7 +128,9 @@ export default {
     }*/
     addToList() {
       if (this.isAdded) {
-        const docId = this.watchList.filter(item => item.movie.id === this.detailMovie.id)[0].id;
+        const docId = this.watchList.filter(
+          item => item.movie.id === this.detailMovie.id
+        )[0].id;
         firebase
           .firestore()
           .collection("users")
@@ -171,12 +181,19 @@ export default {
 }
 
 .title {
+  display: flex;
+  justify-content: space-between;
   color: white;
   padding: 1em;
 }
 
 .genres {
-  display: inline;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px;
+}
+
+.genres span {
   margin-left: 5px;
   font-size: 16px;
   background-color: #725ac1;
@@ -190,6 +207,7 @@ export default {
   margin-left: 15px;
   color: white;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .right {
@@ -231,25 +249,18 @@ export default {
 }
 
 .imdb {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.imdb p {
-  background-color: black;
-  border: 0.5px solid darkblue;
+  background-color: #242038;
+  border: 1px solid white;
   border-radius: 50%;
   width: 48px;
   height: 48px;
   text-align: center;
   padding-top: 10px;
-  color: gold;
-  margin-left: 15px;
+  color: white;
 }
 
 .warning {
   margin-top: 10px;
-  margin-left: 20px;
   font-weight: bold;
   font-size: 20px;
 }
@@ -259,13 +270,26 @@ export default {
 }
 
 .overview {
-  background-color: rgba(202, 196, 206, 0.7);
-  color: black;
+  color: white;
+  width: 90%;
 }
 
 @media only screen and (max-width: 820px) {
   .head {
     height: auto;
+    width: 100%;
+  }
+  .left {
+    float: none;
+    display: flex;
+    justify-content: center;
+  }
+  .right {
+    float: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 0px;
   }
   .head .about {
     height: auto;

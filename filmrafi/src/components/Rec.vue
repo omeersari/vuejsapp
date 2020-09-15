@@ -2,26 +2,19 @@
   <div class="mainRec">
     <h1>RECOMMENDATIONS</h1>
     <div class="rec">
-      <div class="popMovies" v-for="item in rec" :key="item.id" @click="gotoDetails(item.id)">
-        <div class="image">
-          <img :src="`${API.IMAGE_URL}${item.poster_path}`" />
-        </div>
-        <div class="information">
-        <span class="rate">
-          {{ item.vote_average }}
-        </span>
-          <span class="title">
-          {{ item.title }}
-        </span>
-        </div>
-      </div>
+        <MovieCard
+            v-for="item in rec"
+            :key="item.id"
+            :movie="item"
+        ></MovieCard>
+     </div>
     </div>
-  </div>
 
 </template>
 
 <script>
 import API from "../../api";
+import MovieCard from "@/components/MovieCard";
 export default {
 name: "Rec",
   props: {
@@ -29,6 +22,9 @@ name: "Rec",
       type: Array,
       required: true
     }
+  },
+  components: {
+    MovieCard
   },
   data() {
     return {
@@ -46,86 +42,32 @@ name: "Rec",
 <style scoped>
 
 .mainRec {
+  margin: 20px auto;
   width: 90%;
-  margin: 40px auto 20px auto;
+  color: white;
   background-color: rgba(202, 196, 206, 0.4);
   padding: 20px;
 }
 
-.mainRec h1 {
-  color: white;
-  margin-bottom: 20px;
-}
-
 .rec {
+  width: 80%;
+  margin: 10px auto;
   display: grid;
-  width: 70%;
-  margin: 40px auto 20px auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 15px;
+  justify-items: center;
 }
-.information {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  background-color: black;
-  color: white;
-  height: 100px;
-  padding: 5px;
-}
-.image {
-  height: 300px;
-}
-.popMovies {
-  position: relative;
-  top: 0;
-  transition: top ease 0.5s;
-}
-.popMovies:hover {
-  top: -10px;
-}
+
 .image img {
   width: 100%;
   height: 300px;
 }
 
-.rate {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  border-radius: 50%;
-  background-color: black;
-  color: yellow;
-  padding: 5px;
-}
-
-.title {
-  width: 85%;
-}
-
-.genres {
-  display: flex;
-  justify-content: flex-start;
-  font-size: 10px;
-  width: 85%;
-}
 
 @media only screen and (max-width: 820px) {
   .rec {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .information {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    background-color: black;
-    color: white;
-    height: auto;
-  }
-  .image img {
-    width: 100%;
-    height: 300px;
+    grid-template-columns: 1fr;
   }
 }
 </style>

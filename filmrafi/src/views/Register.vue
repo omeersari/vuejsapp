@@ -1,7 +1,7 @@
 <template>
   <Container style="margin-top:100px">
-    <div class="registerForm">
-      <h1>LOGIN</h1>
+    <div class="registerForm" v-if="isLoading">
+      <h1>REGISTER</h1>
       <form class="login" @submit.prevent="onRegister">
         <label for="">Email</label>
         <input type="email" v-model="formModel.email" required />
@@ -9,15 +9,10 @@
         <input type="password" v-model="formModel.password" required />
         <button type="submit">REGISTER</button>
       </form>
-      <p>
-        Already have an account.
-        <router-link
-          to="/login"
-          style="margin-left:1.5px; text-decoration:underline"
-        >
-          Sign in.</router-link
-        >
-      </p>
+      <div class="bottom">
+        <p>Have an account ?</p>
+        <p class="register" @click="goToLogin">Login.</p>
+      </div>
       <p v-if="error" style="color:red;">{{ error }}</p>
     </div>
   </Container>
@@ -36,7 +31,8 @@ export default {
         email: "",
         password: ""
       },
-      error: ""
+      error: "",
+      isLoading: true
     };
   },
   components: {
@@ -48,6 +44,7 @@ export default {
       login: "auth/login",
     }),
     ...mapMutations('auth', ['SET_USER']),
+    ...mapMutations("movies", ["SET_LOADING"]),
     onRegister() {
       firebase
         .auth()
@@ -73,10 +70,18 @@ export default {
         this.error = "This email is already used"
         setTimeout( () => { this.error = "" }, 3000 )
       }*/
+    },
+    goToLogin() {
+      this.isLoading = false
+      this.SET_LOADING(true)
+      setTimeout(() => this.$router.push({ path: "/login" }), 1000);
     }
   },
   computed: {
     ...mapGetters("auth", ["userList"])
+  },
+  created() {
+    this.SET_LOADING(false)
   }
 };
 </script>
@@ -136,6 +141,17 @@ export default {
 .login button:hover {
   background-color: #fff;
   color:black;
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+}
+
+.register {
+  margin-left: 2px;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 820px) {
