@@ -91,7 +91,7 @@ export default {
 
 <style scoped>
 .navigation {
-  background-color: #0f4c75;
+  background-color: #242038;
   color: white;
   position: fixed;
   width: 100%;
@@ -150,7 +150,7 @@ export default {
 }
 
 .changeColor {
-  background-color: white;
+  background-color: #F7ECE1;
   color: black;
 }
 

@@ -18,7 +18,8 @@ const movies = {
     galeryOfMovie: [],
     recommadations: [],
     search: [],
-    WatchList: []
+    WatchList: [],
+    isLoading: false
   },
   getters: {
     PopMovies: state => state.PopularMovies,
@@ -72,6 +73,9 @@ const movies = {
     },
     GET_FAV_LIST(state, payload) {
       state.WatchList = payload;
+    },
+    SET_LOADING(state, payload) {
+      state.isLoading = payload
     }
   },
   actions: {
@@ -82,33 +86,43 @@ const movies = {
       commit("GENRES_LIST", response.data);
     },
     async popularMovies({ commit }, page) {
+      commit("SET_LOADING", true)
       const response = await axios.get(
         `https://api.themoviedb.org/3/movie/popular?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=${page}`
       );
       commit("POPULAR_MOVIES", response.data.results);
+      commit("SET_LOADING", false)
     },
     async getDetail({ commit }, id) {
+      commit("SET_LOADING", true)
       const response = await axios.get(
         `https://api.themoviedb.org/3/movie/${id}?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US`
       );
+      commit("SET_LOADING", false)
       commit("GET_DETAIL", response.data);
     },
     async topRatedMovies({ commit }, page) {
+      commit("SET_LOADING", true)
       const response = await axios.get(
         `https://api.themoviedb.org/3/movie/top_rated?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=${page}`
       );
+      commit("SET_LOADING", false)
       commit("TOP_RATED_MOVIES", response.data.results);
     },
     async upcoming({ commit }, page) {
+      commit("SET_LOADING", true)
       const response = await axios.get(
         `https://api.themoviedb.org/3/movie/upcoming?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=${page}`
       );
+      commit("SET_LOADING", false)
       commit("UPCOMING", response.data.results);
     },
     async nowplaying({ commit }, page) {
+      commit("SET_LOADING", true)
       const response = await axios.get(
         `https://api.themoviedb.org/3/movie/now_playing?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=${page}`
       );
+      commit("SET_LOADING", false)
       commit("NOW_PLAYING", response.data.results);
     },
     async getCast({ commit }, id) {
@@ -130,10 +144,12 @@ const movies = {
       commit("GET_REC", response.data);
     },
     async Search({ commit }, query) {
+      commit("SET_LOADING", true)
       if (query !== "") {
         const response = await axios.get(
           `https://api.themoviedb.org/3/search/movie?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=1&include_adult=false&query=${query}`
         );
+        commit("SET_LOADING", false)
         commit("GET_RESULTS", response.data);
       }
     },

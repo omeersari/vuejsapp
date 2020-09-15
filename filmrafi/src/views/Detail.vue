@@ -1,14 +1,11 @@
 <template>
-  <div>
+  <div class="detail" :style="
+       `background-image: url(${API.IMAGE_URL}${detailMovie.backdrop_path})`
+  ">
     <div class="head">
-      <div
-        class="about"
-        :style="
-          `background-image: url(${API.IMAGE_URL}${detailMovie.backdrop_path})`
-        "
-      ></div>
       <div class="title">
         <h1>{{ detailMovie.title }}</h1>
+        <p>{{ detailMovie.vote_average }}</p>
         <small v-for="(genres, id) in detailMovie.genres" :key="id">
           <span class="genres">{{ genres.name }}</span>
         </small>
@@ -24,7 +21,6 @@
           <small> Release Date: {{ detailMovie.release_date }} </small>
           <small> Duration: {{ detailMovie.runtime }} min</small>
           <span class="imdb">
-            <img src="../assets/imdb.png" style="width: 65px; height: auto" />
             <p>{{ detailMovie.vote_average }}</p>
             <button
               v-if="activeUser"
@@ -42,8 +38,8 @@
           <h4 style="font-style: italic; margin-top: 15px;">
             {{ detailMovie.tagline }}
           </h4>
-          <h1>Overview</h1>
-          <p>{{ detailMovie.overview }}</p>
+          <h1 class="overview">Overview</h1>
+          <p class="overview">{{ detailMovie.overview }}</p>
         </div>
       </div>
     </div>
@@ -164,21 +160,14 @@ export default {
   z-index: 1;
   height: 500px;
   top: 90px;
-  background-color: lightskyblue;
+  background-color: rgba(114, 90, 193, 0.6);
+  width: 90%;
+  margin: 0px auto;
 }
-.head .about {
+.detail {
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  opacity: 0.9;
-  width: 100%;
-  height: 500px;
+  background-attachment: fixed;
+  background-size: 100% 100%;
 }
 
 .title {
@@ -190,11 +179,11 @@ export default {
   display: inline;
   margin-left: 5px;
   font-size: 16px;
-  background-color: #ffc107;
-  border: 1px solid #ffc107;
+  background-color: #725ac1;
+  border: 1px solid #725ac1;
   border-radius: 10px;
   padding: 1px;
-  color: #212529;
+  color: white;
 }
 
 .movie {
@@ -267,6 +256,11 @@ export default {
 
 .warning a {
   text-decoration: underline;
+}
+
+.overview {
+  background-color: rgba(202, 196, 206, 0.7);
+  color: black;
 }
 
 @media only screen and (max-width: 820px) {

@@ -70,6 +70,8 @@ export default {
 .galery {
   width: 90%;
   margin: 10px auto 0 auto;
+  background-color: rgba(202, 196, 206, 0.4);
+  padding: 20px;
 }
 
 .galery h1 {

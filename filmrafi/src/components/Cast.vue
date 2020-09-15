@@ -61,9 +61,10 @@ export default {
 <style scoped>
 .cast {
   text-align: center;
-  margin: 30px auto 0 auto;
+  margin: 120px auto 0 auto;
   color: white;
   width: 90%;
+  background-color: rgba(202, 196, 206, 0.4);
 
 }
 

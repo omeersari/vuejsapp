@@ -2,7 +2,7 @@
   <div>
     <Container>
       <paginate
-          v-model="pageNum"
+        v-model="pageNum"
         :page-count="20"
         :page-range="3"
         :margin-pages="2"
@@ -11,7 +11,7 @@
         :next-text="'Next'"
         :container-class="'pagination'"
         :page-class="'pageItem'"
-          :active-class="'activeC'"
+        :active-class="'activeC'"
       >
       </paginate>
     </Container>
@@ -25,22 +25,17 @@ export default {
   components: {
     Container
   },
-  props: {
-    pageNumber: {
-      type: Number,
-      required: true
-    }
-  },
+  props: ['pageNumber'],
   data() {
     return {
       pageNum: this.pageNumber
-    }
+    };
   },
   methods: {
     clickCallback(pageNum) {
-      this.$emit('changeRoute', pageNum)
+      this.$emit("changeRoute", pageNum);
     }
-  },
+  }
 };
 </script>
 
@@ -49,7 +44,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(46, 49, 49, 0.4);
+  background-color: rgba(202, 196, 206, 0.4);
   color: white;
   margin-top: 15px;
   list-style-type: none;

@@ -48,6 +48,8 @@ name: "Rec",
 .mainRec {
   width: 90%;
   margin: 40px auto 20px auto;
+  background-color: rgba(202, 196, 206, 0.4);
+  padding: 20px;
 }
 
 .mainRec h1 {

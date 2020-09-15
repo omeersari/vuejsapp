@@ -9,7 +9,7 @@
         ></MovieCard>
       </div>
       <template v-if="this.$route.name !== 'Home'">
-        <Pagination :pageNumber="this.$route.params.page" @changeRoute="changeRoute" />
+        <Pagination :pageNumber=parseInt(this.$route.params.page) @changeRoute="changeRoute" />
       </template>
     </Container>
   </div>
@@ -54,7 +54,7 @@ export default {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 15px;
   justify-items: center;
-  background-color: rgba(46, 49, 49, 0.4);
+  background-color: rgba(202, 196, 206, 0.4);
   padding: 20px;
 }
 

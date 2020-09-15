@@ -78,13 +78,14 @@ export default {
 <style scoped>
 .loginForm {
   border: 1px solid black;
-  background-color: royalblue;
+  background-color: #cac4ce;
   width: 400px;
   padding: 30px;
   height: auto;
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
+  color: black;
 }
 
 .loginForm h1 {
