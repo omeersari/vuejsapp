@@ -1,11 +1,11 @@
 <template>
   <div>
-    <Container>
+    <Container class="small">
       <paginate
         v-model="pageNum"
         :page-count="20"
         :page-range="3"
-        :margin-pages="2"
+        :margin-pages="1"
         :click-handler="clickCallback"
         :prev-text="'Prev'"
         :next-text="'Next'"
@@ -28,7 +28,7 @@ export default {
   props: ['pageNumber'],
   data() {
     return {
-      pageNum: this.pageNumber
+      pageNum: parseInt(this.pageNumber)
     };
   },
   methods: {
@@ -69,5 +69,11 @@ export default {
   border: 1px black solid;
   background-color: white;
   color: black;
+}
+
+@media only screen and (max-width: 820px) {
+  .pageItem {
+    margin-left: 1px;
+  }
 }
 </style>

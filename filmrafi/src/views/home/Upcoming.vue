@@ -59,7 +59,7 @@ export default {
 @media only screen and (max-width: 820px) {
   .popbody {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 }
 </style>

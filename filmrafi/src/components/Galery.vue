@@ -1,5 +1,5 @@
 <template>
-  <div class="galery">
+  <div class="galery" v-if="galery.length > 0">
     <h1>GALERY</h1>
     <vueper-slides
       ref="vueperslides1"

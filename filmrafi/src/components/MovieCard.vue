@@ -1,7 +1,10 @@
 <template>
   <div class="popMovies" @click="gotoDetails(movie.id)">
-    <div class="image">
-      <img :src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`" />
+    <div class="image" v-if="movie.poster_path">
+      <img :src="`${API.IMAGE_URL}${movie.poster_path}`" />
+    </div>
+    <div class="noPhoto" v-else>
+      NO PHOTO
     </div>
     <div class="information">
       <span class="title">
@@ -15,8 +18,14 @@
 </template>
 
 <script>
+import API from "../../api";
 export default {
   name: "MovieCard",
+  data() {
+    return {
+      API
+    }
+  },
   props: {
     movie: {
       type: Object,
@@ -57,6 +66,17 @@ export default {
 }
 .image img {
   width: 100%;
+  height: 300px;
+}
+
+
+.noPhoto{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgray;
+  color: black;
+  font-weight: bold;
   height: 300px;
 }
 

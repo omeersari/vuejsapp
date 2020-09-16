@@ -173,6 +173,9 @@ export default {
 }
 
 @media only screen and (max-width: 820px) {
+  .logo {
+    margin-right: 10px;
+  }
   .search {
     justify-content: flex-start;
   }

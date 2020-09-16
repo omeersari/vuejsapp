@@ -1,5 +1,5 @@
 <template>
-  <div class="mainRec">
+  <div class="mainRec" v-if="rec.length > 0">
     <h1>RECOMMENDATIONS</h1>
     <div class="rec">
         <MovieCard

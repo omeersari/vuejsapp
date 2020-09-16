@@ -95,6 +95,14 @@ export default {
   color: white;
 }
 
+.noPhoto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgray;
+  color: black;
+}
+
 .actors img {
   margin-left: 15px;
 }

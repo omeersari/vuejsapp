@@ -16,12 +16,13 @@
         </small>
       </div>
       <div class="movie">
-        <div class="left">
+        <div class="left" v-if="detailMovie.poster_path">
           <img
             class="poster"
             :src="`${API.IMAGE_URL}${detailMovie.poster_path}`"
           />
         </div>
+        <div class="noPhoto" v-else>NO PHOTO</div>
         <div class="right">
           <p style="display: inline-block">
             Release Date: {{ detailMovie.release_date }}
@@ -246,6 +247,19 @@ export default {
 .poster {
   width: 200px;
   height: 300px;
+}
+
+.noPhoto{
+  float:left;
+  clear: both;
+  background-color: lightgray;
+  color: black;
+  font-weight: bold;
+  width: 200px;
+  height: 300px;
+  text-align: center;
+  padding-top: 120px;
+
 }
 
 .imdb {
