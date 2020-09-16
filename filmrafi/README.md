@@ -4,13 +4,13 @@ In this project users can search for popular, top-rated, now playing and upcomin
 You can visit the project from : https://filmrafi.vercel.app/ 
 
 Used technologies and components listed below:
-- [ x ] Firebase auth and cloud firestore
-- [ x ] Vue.js, vuex, vue-router
-- [ x ] Debounce from vue-debounce for searching movies
-- [ x ] Pagination from vue-paginate
-- [ x ] Slides for movie galeries from vueperslides
-- [ x ] Axios for TMDB api
-- [ x ] Loader(spinner) from epic-spinners
+-  Firebase auth and cloud firestore
+-  Vue.js, vuex, vue-router
+-  Debounce from vue-debounce for searching movies
+-  Pagination from vue-paginate
+-  Slides for movie galeries from vueperslides
+-  Axios for TMDB api
+-  Loader(spinner) from epic-spinners
 
 For other CSS no library is used. 
 
