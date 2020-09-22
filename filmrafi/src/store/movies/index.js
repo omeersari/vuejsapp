@@ -57,7 +57,7 @@ const movies = {
     },
     GET_CAST(state, response) {
       state.castOfMovie = response.cast.filter(
-      item => item.profile_path !== null
+        item => item.profile_path !== null
       );
     },
     GET_GALERY(state, response) {
@@ -95,10 +95,14 @@ const movies = {
     },
     async getDetail({ commit }, id) {
       commit("SET_LOADING", true);
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US`
-      );
-      commit("GET_DETAIL", response.data);
+      await axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${id}?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US`
+        )
+        .then(response => {
+          commit("GET_DETAIL", response.data);
+        });
+      //commit("GET_DETAIL", response.data);
       commit("SET_LOADING", false);
     },
     async topRatedMovies({ commit }, page) {
@@ -111,11 +115,14 @@ const movies = {
     },
     async upcoming({ commit }, page) {
       commit("SET_LOADING", true);
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=${page}`
-      );
+      await axios
+        .get(
+          `https://api.themoviedb.org/3/movie/upcoming?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US&page=${page}`
+        )
+        .then(response => {
+          commit("UPCOMING", response.data.results);
+        });
       commit("SET_LOADING", false);
-      commit("UPCOMING", response.data.results);
     },
     async nowplaying({ commit }, page) {
       commit("SET_LOADING", true);
