@@ -73,8 +73,11 @@ export default {
       this.scrollPosition = window.scrollY;
     },
     debounceInput: debounce(function(e) {
-      this.$store.dispatch("movies/Search", e.target.value);
-      this.$router.push({ name: "Search", params: { query: e.target.value } });
+      console.log(e.target.value)
+      if (e.target.value !== "") {
+        this.$store.dispatch("movies/Search", e.target.value);
+        this.$router.push({ name: "Search", params: { query: e.target.value } })
+      }
     }, 300)
   },
   computed: {

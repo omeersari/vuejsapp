@@ -3,11 +3,16 @@
     <div>
       <h1>SEARCH RESULTS</h1>
       <div class="popbody">
+        <template v-if="searchResults">
         <MovieCard
           v-for="item in searchResults"
           :key="item.id"
           :movie="item"
         ></MovieCard>
+        </template>
+        <template v-else>
+          <p>Please search for a movie..</p>
+        </template>
       </div>
     </div>
   </Container>

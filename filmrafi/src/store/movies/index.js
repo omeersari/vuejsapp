@@ -98,8 +98,8 @@ const movies = {
       const response = await axios.get(
         `https://api.themoviedb.org/3/movie/${id}?api_key=c038ce1188345d8eaab23ae93ef8532d&language=en-US`
       );
-      commit("SET_LOADING", false);
       commit("GET_DETAIL", response.data);
+      commit("SET_LOADING", false);
     },
     async topRatedMovies({ commit }, page) {
       commit("SET_LOADING", true);

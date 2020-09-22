@@ -15,22 +15,22 @@ const routes = [
       {
         path: "popular/:page",
         name: "Popular",
-        component: () => import("../views/home/Popular.vue")
+        component: () => import( /* webpackChunkName: "popular" */"../views/home/Popular.vue")
       },
       {
         path: "nowplaying/:page",
         name: "NowPlaying",
-        component: () => import("../views/home/NowPlaying.vue")
+        component: () => import(/* webpackChunkName: "NowPlaying" */"../views/home/NowPlaying.vue")
       },
       {
         path: "toprated/:page",
         name: "TopRated",
-        component: () => import("../views/home/TopRated.vue")
+        component: () => import(/* webpackChunkName: "TopRated" */"../views/home/TopRated.vue")
       },
       {
         path: "upcoming/:page",
         name: "Upcoming",
-        component: () => import("../views/home/Upcoming.vue")
+        component: () => import(/* webpackChunkName: "Upcoming" */"../views/home/Upcoming.vue")
       }
     ]
   },
