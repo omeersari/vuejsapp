@@ -69,6 +69,7 @@ export default {
   width: 90px;
   transition: 300ms all;
   border-radius: 3px;
+  font-family: "Courgette", cursive;
 }
 
 .formRegister button:hover {
